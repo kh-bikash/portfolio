@@ -18,7 +18,7 @@ export function PrismNav({ onWorkClick }: { onWorkClick?: () => void }) {
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            className="fixed top-8 left-1/2 -translate-x-1/2 z-50"
+            className="fixed top-8 left-0 w-full flex justify-center z-50 px-4"
         >
             <div className="px-8 py-4 bg-background/70 backdrop-blur-xl border border-border rounded-full shadow-lg shadow-black/5 flex items-center gap-8">
                 <span className="font-bold text-sm tracking-widest text-foreground">BIKASH</span>
