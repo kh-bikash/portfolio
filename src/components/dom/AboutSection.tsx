@@ -16,7 +16,7 @@ export function AboutSection() {
     const { playClick, playHover } = useAudioSystem()
 
     return (
-        <div className="absolute inset-0 flex flex-col pt-20 pb-10 z-10 pointer-events-auto bg-black/80 backdrop-blur-sm">
+        <section id="about" className="relative w-full min-h-screen flex flex-col pt-20 pb-10 z-10 pointer-events-auto bg-black/80 backdrop-blur-sm text-white">
             {/* NAVIGATION TABS */}
             <div className="flex justify-center gap-4 mb-4 z-50">
                 {[
@@ -29,8 +29,8 @@ export function AboutSection() {
                         onClick={() => { playClick(); setTab(item.id as Tab) }}
                         onMouseEnter={playHover}
                         className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold tracking-widest transition-all ${tab === item.id
-                                ? "bg-primary/20 border-primary text-primary shadow-[0_0_20px_rgba(0,255,255,0.3)]"
-                                : "bg-white/5 border-transparent text-gray-500 hover:bg-white/10 hover:text-white"
+                            ? "bg-primary/20 border-primary text-primary shadow-[0_0_20px_rgba(0,255,255,0.3)]"
+                            : "bg-white/5 border-transparent text-gray-500 hover:bg-white/10 hover:text-white"
                             }`}
                     >
                         <item.icon className="w-3 h-3" />

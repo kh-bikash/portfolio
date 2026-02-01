@@ -8,6 +8,7 @@ import { SkillsConstellation } from "@/components/dom/SkillsConstellation"
 
 import { HoloContact } from "@/components/dom/HoloContact"
 import { MassiveFooter } from "@/components/dom/MassiveFooter"
+import { AboutSection } from "@/components/dom/AboutSection"
 import { ExperienceTimeline } from "@/components/dom/ExperienceTimeline"
 import { GlassHUD } from "@/components/dom/GlassHUD"
 
@@ -44,6 +45,7 @@ export function NexusEntry() {
             <div className="relative z-10 font-sans">
                 <SystemArchitecture />
                 <NeuralGrid />
+                <AboutSection />
                 <ExperienceTimeline />
                 <SkillsConstellation />
                 <LiveStats />
