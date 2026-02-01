@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Project Ethereal Nexus - Light Crystal Theme */
+  --background: #fafafa;
+  /* Zinc-50 */
+  --foreground: #18181b;
+  /* Zinc-900 */
+
+  --card: #ffffff;
+  --card-foreground: #18181b;
+
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  --primary: #06b6d4;
+  /* Cyan-500 (Neural Energy) */
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  /* Zinc-100 */
+  --secondary-foreground: #18181b;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  /* Zinc-500 */
+
+  --accent: #ecfeff;
+  /* Cyan-50 */
+  --accent-foreground: #0e7490;
+  /* Cyan-700 */
+
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+
+  --border: #e4e4e7;
+  /* Zinc-200 */
+  --input: #e4e4e7;
+  --ring: #06b6d4;
+  /* Cyan Ring */
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Dark Mode Fallback (Optional) */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --primary: #3b82f6;
+  --primary-foreground: #000000;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #1d4ed8;
+}
+
+/* CYBERPUNK THEME */
+.theme-cyberpunk {
+  --background: #0a0a14;
+  --foreground: #ff00ff;
+  /* Neon Pink */
+  --primary: #00ffff;
+  /* Cyan */
+  --primary-foreground: #000000;
+  --muted: #1a1a2e;
+  --muted-foreground: #a0a0ff;
+  --border: #ff00ff;
+  --ring: #00ffff;
+  --card: #0f0f1a;
+  --card-foreground: #ff00ff;
+}
+
+/* MATRIX THEME */
+.theme-matrix {
+  --background: #000000;
+  --foreground: #00ff00;
+  /* Terminal Green */
+  --primary: #003300;
+  --primary-foreground: #00ff00;
+  --muted: #001100;
+  --muted-foreground: #008800;
+  --border: #004400;
+  --ring: #00ff00;
+  --card: #000000;
+  --card-foreground: #00ff00;
+}
+
+/* ZEN THEME */
+.theme-zen {
+  --background: #f5f0e1;
+  /* Parchment */
+  --foreground: #2c2c2c;
+  /* Ink */
+  --primary: #8d7b68;
+  /* Clay */
+  --primary-foreground: #ffffff;
+  --muted: #e6e1d3;
+  --muted-foreground: #666666;
+  --border: #d4cfc0;
+  --ring: #8d7b68;
+  --card: #fdfbf7;
+  --card-foreground: #2c2c2c;
+}
+
+@theme inline {
+  --font-sans: "Inter", sans-serif;
+  /* Premium Sans */
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    height: auto;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Lenis needs normal overflow, we don't force hidden unless necessary */
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight font-medium;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00F0FF;
+}
+
+::selection {
+  background: #00F0FF;
+  color: #000;
+}
+
+/* 3D / Glitter Animations */
+@keyframes glitter {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scale(0.5);
+  }
+}
+
+.animate-glitter {
+  animation: glitter 3s ease-in-out infinite;
+}
+
+
+/* Smooth scroll behavior - We let Lenis handle this, so we set auto here */
+html {
+  scroll-behavior: auto;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glow pulse animation */
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    filter: blur(20px);
+  }
+
+  50% {
+    opacity: 0.7;
+    filter: blur(30px);
+  }
+}
+
+.animate-glow {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* Scanline Animation */
+@keyframes scan {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 4px;
+  }
+}
+
+.animate-scan {
+  animation: scan 0.2s linear infinite;
+}
+
+/* Text Stroke Utilities */
+.text-stroke-white {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  color: transparent;
+}
+
+.text-stroke-primary {
+  -webkit-text-stroke: 1px var(--primary);
+  color: transparent;
+}
+
+.text-stroke-primary:hover {
+  color: var(--primary);
+}
+
+@keyframes music-bar {
+
+  0%,
+  100% {
+    height: 4px;
+  }
+
+  50% {
+    height: 16px;
+  }
+}

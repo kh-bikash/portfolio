@@ -1,0 +1,16 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg" style="background:#000">
+  <rect width="400" height="300" fill="#0f0014"/>
+  
+  <!-- Stars -->
+  <circle cx="50" cy="50" r="1" fill="#fff"/>
+  <circle cx="350" cy="250" r="2" fill="#fff"/>
+  <circle cx="200" cy="150" r="1.5" fill="#f0abfc"/>
+  <circle cx="100" cy="200" r="1" fill="#fff"/>
+  <circle cx="300" cy="100" r="1" fill="#fff"/>
+  
+  <!-- Vortex Spiral -->
+  <path d="M 200 150 Q 250 100 300 150 T 200 250 T 100 150 T 200 50" stroke="#c084fc" fill="none" stroke-width="1" opacity="0.5"/>
+  <path d="M 200 150 Q 230 120 260 150 T 200 210 T 140 150 T 200 90" stroke="#c084fc" fill="none" stroke-width="1" opacity="0.8"/>
+  
+  <text x="20" y="280" font-family="monospace" fill="#c084fc" font-size="14">FIG 4.0 // VOID_UNIVERSE</text>
+</svg>
