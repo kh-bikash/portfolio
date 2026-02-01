@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useUIStore } from "@/lib/ui-store"
 
 const EXPERIENCE = [
     {
@@ -28,6 +29,14 @@ const PROJECTS = [
 export function CleanResume() {
     return (
         <section className="min-h-screen bg-zinc-50 flex items-center justify-center p-8 md:p-20 print:p-0">
+            {/* Exit Button - Hidden in Print */}
+            <button
+                onClick={() => useUIStore.getState().toggleRecruiterMode()}
+                className="fixed top-6 right-6 z-50 bg-black text-white px-4 py-2 rounded-full text-xs font-bold tracking-widest hover:bg-zinc-800 transition-colors shadow-lg print:hidden"
+            >
+                EXIT RECRUITER MODE
+            </button>
+
             <div className="max-w-4xl w-full bg-white shadow-xl shadow-zinc-200/50 rounded-2xl p-12 md:p-16 border border-zinc-100 print:shadow-none print:border-none print:p-8">
 
                 {/* Header */}
