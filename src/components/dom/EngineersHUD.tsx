@@ -109,29 +109,19 @@ export function EngineersHUD() {
                 <div className="absolute left-1/2 top-0 h-full w-[1px] bg-cyan-500" />
             </div>
 
-            {/* Recruiter Mode Toggle */}
-            <div className="absolute top-8 right-32 z-[60] pointer-events-auto flex flex-col items-end gap-2">
-                <button
-                    onClick={() => useUIStore.getState().toggleRecruiterMode()}
-                    className="bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 text-[8px] hover:bg-cyan-500/30 transition-colors flex items-center gap-2 group"
-                >
-                    <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse" />
-                    <span>SWITCH_TO_RESUME_VIEW</span>
-                </button>
-
-                {/* Biome Switcher (Dev Tools) */}
-                <div className="flex gap-1">
-                    {(['cyber', 'organic', 'industrial'] as const).map(biome => (
-                        <button
-                            key={biome}
-                            onClick={() => useBiomeStore.getState().setBiome(biome)}
-                            className="bg-black/50 border border-white/10 px-2 py-1 text-[7px] uppercase hover:bg-white/10 transition-colors text-white/50 hover:text-white"
-                        >
-                            {biome}
-                        </button>
-                    ))}
-                </div>
+            {/* Biome Switcher (Dev Tools) */}
+            <div className="flex gap-1">
+                {(['cyber', 'organic', 'industrial'] as const).map(biome => (
+                    <button
+                        key={biome}
+                        onClick={() => useBiomeStore.getState().setBiome(biome)}
+                        className="bg-black/50 border border-white/10 px-2 py-1 text-[7px] uppercase hover:bg-white/10 transition-colors text-white/50 hover:text-white"
+                    >
+                        {biome}
+                    </button>
+                ))}
             </div>
         </div>
+        </div >
     )
 }

@@ -21,6 +21,7 @@ import { AIDreamMode } from "@/components/dom/AIDreamMode"
 import { SystemArchitecture } from "@/components/dom/SystemArchitecture"
 import { TerminalOverride } from "@/components/dom/TerminalOverride"
 import { EngineersHUD } from "@/components/dom/EngineersHUD"
+import { useUIStore } from "@/lib/ui-store"
 
 export function NexusEntry() {
     return (
@@ -34,6 +35,13 @@ export function NexusEntry() {
 
             {/* Control Cluster */}
             <div className="fixed top-8 right-8 z-[60] flex items-center gap-3 control-cluster">
+                <button
+                    onClick={() => useUIStore.getState().toggleRecruiterMode()}
+                    className="bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 text-[8px] hover:bg-cyan-500/30 transition-colors flex items-center gap-2 group text-cyan-500 font-mono tracking-widest backdrop-blur-sm"
+                >
+                    <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse" />
+                    <span>RESUME_MODE</span>
+                </button>
                 <ThemeMutator />
             </div>
 
