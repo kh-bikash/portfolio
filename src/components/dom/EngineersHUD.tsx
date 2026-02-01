@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { useUIStore } from "@/lib/ui-store"
 import { useBiomeStore } from "@/lib/biome-store"
 
 export function EngineersHUD() {
@@ -111,17 +110,8 @@ export function EngineersHUD() {
 
             {/* Biome Switcher (Dev Tools) */}
             <div className="flex gap-1">
-                {(['cyber', 'organic', 'industrial'] as const).map(biome => (
-                    <button
-                        key={biome}
-                        onClick={() => useBiomeStore.getState().setBiome(biome)}
-                        className="bg-black/50 border border-white/10 px-2 py-1 text-[7px] uppercase hover:bg-white/10 transition-colors text-white/50 hover:text-white"
-                    >
-                        {biome}
-                    </button>
                 ))}
             </div>
         </div>
-        </div >
     )
 }
