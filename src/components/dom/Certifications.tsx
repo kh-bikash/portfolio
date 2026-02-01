@@ -4,10 +4,11 @@ import { motion } from "framer-motion"
 import { Shield, Award, Terminal } from "lucide-react"
 
 const CERTS = [
-    { title: "AWS Solutions Architect", issuer: "Amazon Web Services", date: "2024", icon: Shield, color: "text-orange-500" },
-    { title: "TensorFlow Developer", issuer: "Google", date: "2023", icon: Terminal, color: "text-orange-600" }, // Orangeish for TF
-    { title: "Meta Frontend Pro", issuer: "Meta", date: "2025", icon: Award, color: "text-blue-500" },
-    { title: "NVIDIA Deep Learning", issuer: "NVIDIA", date: "2024", icon: Shield, color: "text-green-500" }
+    { title: "Generative AI Professional", issuer: "Oracle", date: "Oct 2025 - Oct 2027", icon: Shield, color: "text-red-500" },
+    { title: "Multicloud Network Associate", issuer: "Aviatrix", date: "Oct 2025 - Oct 2028", icon: Award, color: "text-orange-500" },
+    { title: "Software Engineer Intern", issuer: "HackerRank", date: "Jul 2025", icon: Terminal, color: "text-green-500" },
+    { title: "Certified AI Associate", issuer: "Salesforce", date: "Oct 2024", icon: Shield, color: "text-blue-500" },
+    { title: "NEC '24 Basic Track - Top 20", issuer: "E-Cell, IIT Bombay", date: "Mar 2021", icon: Award, color: "text-yellow-500" }
 ]
 
 export function Certifications() {
