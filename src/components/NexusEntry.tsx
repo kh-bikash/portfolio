@@ -34,7 +34,7 @@ export function NexusEntry() {
             <EngineersHUD />
 
             {/* Control Cluster */}
-            <div className="fixed top-8 right-8 z-[60] flex items-center gap-3 control-cluster">
+            <div className="fixed top-8 right-8 md:right-16 z-[60] flex items-center gap-3 control-cluster">
                 <button
                     onClick={() => useUIStore.getState().toggleRecruiterMode()}
                     className="bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 text-[8px] hover:bg-cyan-500/30 transition-colors flex items-center gap-2 group text-cyan-500 font-mono tracking-widest backdrop-blur-sm"

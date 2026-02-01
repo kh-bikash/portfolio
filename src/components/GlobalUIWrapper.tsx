@@ -1,5 +1,5 @@
 import { useUIStore } from "@/lib/ui-store"
-import { ResumeView } from "@/components/ResumeView"
+import { CleanResume } from "@/components/dom/CleanResume"
 import { AnimatePresence } from "framer-motion"
 
 import { Canvas } from "@react-three/fiber"
@@ -31,7 +31,7 @@ export function GlobalUIWrapper({ children }: { children: React.ReactNode }) {
             </div>
 
             <AnimatePresence>
-                {isRecruiterMode && <ResumeView />}
+                {isRecruiterMode && <CleanResume />}
             </AnimatePresence>
         </>
     )
