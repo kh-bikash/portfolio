@@ -110,7 +110,7 @@ export function EngineersHUD() {
             </div>
 
             {/* Recruiter Mode Toggle */}
-            <div className="absolute top-8 right-32 pointer-events-auto flex flex-col items-end gap-2">
+            <div className="absolute top-8 right-32 z-[60] pointer-events-auto flex flex-col items-end gap-2">
                 <button
                     onClick={() => useUIStore.getState().toggleRecruiterMode()}
                     className="bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 text-[8px] hover:bg-cyan-500/30 transition-colors flex items-center gap-2 group"
