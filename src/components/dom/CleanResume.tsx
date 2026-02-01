@@ -40,9 +40,9 @@ export function CleanResume() {
                             <span>•</span>
                             <span>+91 7005513301</span>
                             <span>•</span>
-                            <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/bikash-kh-5544ba298/" className="hover:text-primary transition-colors">LinkedIn</a>
                             <span>•</span>
-                            <a href="https://github.com/bikash" className="hover:text-primary transition-colors">GitHub</a>
+                            <a href="https://github.com/kh-bikash" className="hover:text-primary transition-colors">GitHub</a>
                         </div>
                     </div>
                     <div className="mt-6 md:mt-0 text-right hidden md:block">
