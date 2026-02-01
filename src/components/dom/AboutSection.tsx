@@ -79,6 +79,6 @@ export function AboutSection() {
                     )}
                 </AnimatePresence>
             </div>
-        </div>
+        </section>
     )
 }
