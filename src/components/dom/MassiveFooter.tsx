@@ -24,7 +24,7 @@ export function MassiveFooter() {
             <div className="flex justify-between items-start z-10">
                 <div className="flex flex-col gap-2">
                     <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Connect</span>
-                    <MagneticButton href="https://www.linkedin.com/in/bikash-kh-5544ba298/">LinkedIn</MagneticButton>
+                    <MagneticButton href="https://www.linkedin.com/in/khundrakpam-bikash-meitei-5544ba298/">LinkedIn</MagneticButton>
                     <MagneticButton href="https://github.com/kh-bikash">GitHub</MagneticButton>
                 </div>
 

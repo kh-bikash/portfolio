@@ -1,13 +1,9 @@
-import { useUIStore } from "@/lib/ui-store"
-import { CleanResume } from "@/components/dom/CleanResume"
-import { AnimatePresence } from "framer-motion"
-
+import { ReactNode } from "react"
 import { Canvas } from "@react-three/fiber"
-import { TransitionOverlay } from "./dom/TransitionOverlay"
+import { TransitionOverlay } from "@/components/dom/TransitionOverlay"
+import { HiringAssistant } from "@/components/dom/HiringAssistant"
 
-export function GlobalUIWrapper({ children }: { children: React.ReactNode }) {
-    const isRecruiterMode = useUIStore((state) => state.isRecruiterMode)
-
+export function GlobalUIWrapper({ children }: { children: ReactNode }) {
     return (
         <>
             {/* Global Transition Canvas (Always on top, pointer-events-none) */}
@@ -16,23 +12,16 @@ export function GlobalUIWrapper({ children }: { children: React.ReactNode }) {
                     gl={{ alpha: true }}
                     orthographic
                     camera={{ zoom: 1 }}
-                    style={{ pointerEvents: 'none' }} // Explicitly disable pointer events on the canvas element
-                    events={undefined} // Disable R3F event manager entirely for this canvas
+                    style={{ pointerEvents: 'none' }}
+                    events={undefined}
                 >
                     <TransitionOverlay />
                 </Canvas>
             </div>
-
-            {/* Main 3D App (Hidden but preserved or unmounted based on preference) 
-          We'll just cover it for now to keep state alive 
-      */}
-            <div className={isRecruiterMode ? "hidden" : "block"}>
-                {children}
-            </div>
-
-            <AnimatePresence>
-                {isRecruiterMode && <CleanResume />}
-            </AnimatePresence>
+            
+            <HiringAssistant />
+            
+            {children}
         </>
     )
 }

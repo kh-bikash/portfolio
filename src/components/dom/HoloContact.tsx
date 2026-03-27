@@ -8,99 +8,111 @@ export function HoloContact() {
     const [copied, setCopied] = useState(false)
 
     const handleCopy = () => {
-        navigator.clipboard.writeText("contact@bikash.ai")
+        navigator.clipboard.writeText("khbikash17@gmail.com")
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
     }
 
     return (
-        <section id="contact" className="relative w-full py-40 px-6 flex items-center justify-center bg-zinc-50 overflow-hidden">
+        <section id="contact" className="relative w-full py-40 px-6 flex items-center justify-center overflow-hidden bg-[#fafafa] dark:bg-black">
+            
+            {/* Apple Intelligence Ambient Backdrop */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none mix-blend-multiply dark:mix-blend-screen opacity-50 dark:opacity-30">
+                <motion.div
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                        rotate: [0, 90, 180, 270, 360]
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-blue-400/30 rounded-full blur-[100px]"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1.2, 1, 1.2],
+                        opacity: [0.4, 0.7, 0.4],
+                        x: [0, -100, 0]
+                    }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[10%] left-[20%] w-[30vw] h-[30vw] bg-purple-400/30 rounded-full blur-[120px]"
+                />
+            </div>
 
             <div className="relative z-10 w-full max-w-2xl">
-
                 <div className="text-center mb-16">
-                    <h2 className="text-sm font-bold tracking-[0.3em] text-cyan-600 uppercase mb-4">Transmission</h2>
-                    <p className="text-5xl md:text-6xl font-light text-zinc-900 tracking-tight">
-                        Initialize <span className="font-serif italic text-zinc-400">Connection</span>
+                    <h2 className="text-sm font-semibold tracking-widest text-zinc-400 dark:text-zinc-500 uppercase mb-4">Transmission</h2>
+                    <p className="text-5xl md:text-7xl font-semibold text-zinc-900 dark:text-white tracking-tight leading-tight">
+                        Initialize <br className="hidden md:block" />
+                        <span className="text-zinc-400 dark:text-zinc-600 font-light italic">Connection.</span>
                     </p>
                 </div>
 
-                {/* Holographic Form Card */}
+                {/* VisionOS Style Frosted Glass Pane */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative bg-white/50 backdrop-blur-xl border border-white/60 rounded-3xl p-8 md:p-12 shadow-2xl shadow-cyan-500/5 ring-1 ring-cyan-100"
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative bg-white/40 dark:bg-black/40 backdrop-blur-3xl border border-white/40 dark:border-white/10 rounded-[2rem] p-8 md:p-12 shadow-[0_8px_40px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_40px_rgba(255,255,255,0.02)]"
                 >
-                    {/* Decorative Corner Makers */}
-                    <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-cyan-300 rounded-tl-xl" />
-                    <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-cyan-300 rounded-tr-xl" />
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-300 rounded-bl-xl" />
-                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-300 rounded-br-xl" />
-
-                    <form className="flex flex-col gap-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider pl-2">Client ID</label>
+                    <form action="https://formsubmit.co/khbikash17@gmail.com" method="POST" className="flex flex-col gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-3">
+                                <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest pl-2">Client ID</label>
                                 <input
                                     type="text"
-                                    placeholder="NAME"
-                                    className="w-full bg-white/80 border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all font-mono text-sm"
+                                    name="name"
+                                    required
+                                    placeholder="Name"
+                                    className="w-full bg-white/50 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl px-5 py-4 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/20 transition-all text-sm placeholder:text-zinc-400 font-medium"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider pl-2">Access Key</label>
+                            <div className="space-y-3">
+                                <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest pl-2">Access Key</label>
                                 <input
                                     type="email"
-                                    placeholder="EMAIL"
-                                    className="w-full bg-white/80 border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all font-mono text-sm"
+                                    name="email"
+                                    required
+                                    placeholder="Email Address"
+                                    className="w-full bg-white/50 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl px-5 py-4 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/20 transition-all text-sm placeholder:text-zinc-400 font-medium"
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider pl-2">Payload</label>
+                        <div className="space-y-3">
+                            <label className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest pl-2">Payload</label>
                             <textarea
+                                name="message"
+                                required
                                 rows={4}
-                                placeholder="ENTER MESSAGE PROTOCOL..."
-                                className="w-full bg-white/80 border border-zinc-200 rounded-xl px-4 py-3 text-zinc-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all font-mono text-sm resize-none"
+                                placeholder="Message Content..."
+                                className="w-full bg-white/50 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-2xl px-5 py-4 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-white/20 transition-all text-sm placeholder:text-zinc-400 font-medium resize-none"
                             />
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-4 pt-4">
+                        <input type="hidden" name="_subject" value="New transmission from Portfolio!" />
+                        <input type="hidden" name="_captcha" value="false" />
+
+                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
                             <button
-                                type="button"
-                                className="flex-1 bg-zinc-900 text-white font-bold tracking-widest text-xs uppercase py-4 rounded-xl hover:bg-cyan-600 transition-colors flex items-center justify-center gap-2 group"
+                                type="submit"
+                                className="flex-1 bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold text-sm py-4 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-transform flex items-center justify-center gap-2 group shadow-sm"
                             >
-                                <span>Transmit Data</span>
-                                <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <span>Transmit Protocol</span>
+                                <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
                             </button>
 
                             <button
                                 type="button"
                                 onClick={handleCopy}
-                                className="px-6 py-4 bg-white border border-zinc-200 text-zinc-600 font-bold text-xs uppercase rounded-xl hover:bg-zinc-50 transition-colors flex items-center justify-center gap-2"
+                                className="px-8 py-4 bg-white/50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white font-semibold text-sm rounded-xl hover:bg-white/80 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
                             >
                                 {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                                <span>{copied ? "COPIED" : "COPY EMAIL"}</span>
+                                <span>{copied ? "Copied" : "Copy Email"}</span>
                             </button>
                         </div>
-
-                        <div className="flex justify-center pt-4">
-                            <a href="/resume.pdf" download className="text-xs font-mono text-zinc-400 hover:text-cyan-600 transition-colors uppercase tracking-widest border-b border-transparent hover:border-cyan-600 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-zinc-300"></span>
-                                Download Neural Record (Resume)
-                            </a>
-                        </div>
                     </form>
-
                 </motion.div>
-
             </div>
-
-            {/* Background Grid */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.15]" />
-
         </section>
     )
 }

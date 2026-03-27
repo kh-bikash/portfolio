@@ -1,127 +1,113 @@
 "use client"
 
-import { Canvas, useFrame } from "@react-three/fiber"
-import { Text, Line, Float, OrbitControls } from "@react-three/drei"
-import { useMemo, useRef, useState } from "react"
-import * as THREE from "three"
 import { motion } from "framer-motion"
+import { Shield, BrainCircuit, Lightbulb, Database, Server, Smartphone, Cloud, PenTool } from "lucide-react"
 
-const SKILLS = [
-    "React", "Next.js", "TypeScript", "Three.js", "Node.js",
-    "Python", "GLSL", "Solidity", "Tailwind", "Framer Motion",
-    "PostgreSQL", "GraphQL", "Docker", "AWS", "PyTorch"
+const BENTO_CATEGORIES = [
+    {
+        title: "Machine Intelligence",
+        icon: BrainCircuit,
+        skills: ["TensorFlow", "PyTorch", "OpenAI APIs", "HuggingFace", "Scikit-Learn"],
+        color: "from-cyan-400/20 to-transparent dark:from-cyan-400/10",
+        span: "col-span-1 md:col-span-2 lg:col-span-2 row-span-2"
+    },
+    {
+        title: "Frontend Engineering",
+        icon: Smartphone,
+        skills: ["React", "Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+        color: "from-purple-400/20 to-transparent dark:from-purple-400/10",
+        span: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1"
+    },
+    {
+        title: "Cloud Native",
+        icon: Cloud,
+        skills: ["AWS", "Aviatrix", "Docker", "CI/CD"],
+        color: "from-blue-400/20 to-transparent dark:from-blue-400/10",
+        span: "col-span-1 md:col-span-1 lg:col-span-1 row-span-1"
+    },
+    {
+        title: "Core Backend",
+        icon: Server,
+        skills: ["Python", "Node.js", "REST APIs", "FastAPI"],
+        color: "from-orange-400/20 to-transparent dark:from-orange-400/10",
+        span: "col-span-1 md:col-span-2 lg:col-span-2 row-span-1"
+    },
+    {
+        title: "Data Architecture",
+        icon: Database,
+        skills: ["PostgreSQL", "SQL", "Big Data", "Data Lakes"],
+        color: "from-emerald-400/20 to-transparent dark:from-emerald-400/10",
+        span: "col-span-1 md:col-span-1 lg:col-span-2 row-span-1"
+    }
 ]
-
-function SkillNode({ position, label }: { position: [number, number, number], label: string }) {
-    const [hovered, setHovered] = useState(false)
-
-    return (
-        <group position={position}>
-            <mesh
-                onPointerOver={() => setHovered(true)}
-                onPointerOut={() => setHovered(false)}
-            >
-                <sphereGeometry args={[hovered ? 0.3 : 0.15, 16, 16]} />
-                <meshStandardMaterial
-                    color={hovered ? "#06b6d4" : "#a1a1aa"}
-                    emissive={hovered ? "#06b6d4" : "#000000"}
-                    emissiveIntensity={hovered ? 2 : 0}
-                    toneMapped={false}
-                />
-            </mesh>
-            <Text
-                position={[0, hovered ? 0.5 : 0.3, 0]}
-                fontSize={hovered ? 0.4 : 0.25}
-                color={hovered ? "#06b6d4" : "#52525b"}
-                anchorX="center"
-                anchorY="bottom"
-            >
-                {label}
-            </Text>
-        </group>
-    )
-}
-
-function Constellation() {
-    // Generate random positions for skills
-    const skillsData = useMemo(() => {
-        return SKILLS.map((skill) => ({
-            label: skill,
-            position: [
-                (Math.random() - 0.5) * 10,
-                (Math.random() - 0.5) * 6,
-                (Math.random() - 0.5) * 4
-            ] as [number, number, number]
-        }))
-    }, [])
-
-    // Create connections (lines) between close nodes
-    const connections = useMemo(() => {
-        const lines = []
-        for (let i = 0; i < skillsData.length; i++) {
-            for (let j = i + 1; j < skillsData.length; j++) {
-                const dist = new THREE.Vector3(...skillsData[i].position).distanceTo(new THREE.Vector3(...skillsData[j].position))
-                if (dist < 4) { // Connect if close enough
-                    lines.push([skillsData[i].position, skillsData[j].position])
-                }
-            }
-        }
-        return lines
-    }, [skillsData])
-
-    return (
-        <group>
-            <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-                {skillsData.map((s, i) => (
-                    <SkillNode key={i} position={s.position} label={s.label} />
-                ))}
-
-                {connections.map((line, i) => (
-                    <Line
-                        key={i}
-                        points={line}
-                        color="#e4e4e7"
-                        transparent
-                        opacity={0.3}
-                        lineWidth={1}
-                    />
-                ))}
-            </Float>
-        </group>
-    )
-}
-
-// Auto-rotation component to replace OrbitControls
-function AutoRotate() {
-    useFrame((state) => {
-        state.camera.position.x = Math.sin(state.clock.elapsedTime * 0.1) * 8
-        state.camera.position.z = Math.cos(state.clock.elapsedTime * 0.1) * 8
-        state.camera.lookAt(0, 0, 0)
-    })
-    return null
-}
 
 export function SkillsConstellation() {
     return (
-        <section id="skills" className="relative w-full h-[80vh] bg-zinc-50 overflow-hidden border-t border-zinc-200">
+        <section id="skills" className="relative w-full py-32 px-6 md:px-12 bg-[#fafafa] dark:bg-black font-sans">
+            
+            <div className="max-w-[1400px] mx-auto relative z-10">
+                
+                {/* Header */}
+                <div className="text-center mb-16 md:mb-24">
+                    <h2 className="text-sm font-semibold tracking-widest text-zinc-400 dark:text-zinc-500 uppercase mb-4">
+                        The Substrate
+                    </h2>
+                    <p className="text-5xl md:text-7xl font-semibold text-zinc-900 dark:text-white tracking-tight leading-tight">
+                        Knowledge <br className="hidden md:block" />
+                        <span className="text-zinc-400 dark:text-zinc-600 font-light italic text-4xl md:text-6xl">Bento Grid.</span>
+                    </p>
+                </div>
 
-            <div className="absolute top-12 left-0 w-full text-center z-20 pointer-events-none">
-                <h2 className="text-sm font-bold tracking-[0.3em] text-cyan-600 uppercase mb-4">The Network</h2>
-                <p className="text-4xl font-light text-zinc-400">Knowledge <span className="text-zinc-800 font-medium">Graph</span></p>
+                {/* Apple Widget / Bento Box Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-none lg:grid-rows-3 gap-6 auto-rows-fr">
+                    {BENTO_CATEGORIES.map((category, i) => (
+                        <motion.div
+                            key={category.title}
+                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className={`group relative overflow-hidden bg-white/50 dark:bg-white/5 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[2rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.06)] dark:shadow-none transition-shadow ${category.span} flex flex-col`}
+                        >
+                            {/* Inner Radiant Glow */}
+                            <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br transition-opacity duration-700 opacity-50 group-hover:opacity-100 ${category.color} z-0 pointer-events-none`} />
+
+                            {/* Apple-Style Ambient Graphic */}
+                            <motion.div 
+                                className="absolute -bottom-10 -right-10 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none text-zinc-900 dark:text-white"
+                                animate={{ y: [0, -10, 0], rotate: [ -5, 0, -5 ] }}
+                                transition={{ duration: 6 + i, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <category.icon className="w-64 h-64 md:w-80 md:h-80" />
+                            </motion.div>
+
+                            <div className="relative z-10 flex flex-col h-full">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-3 bg-white/80 dark:bg-white/10 border border-white dark:border-white/5 rounded-2xl shadow-sm">
+                                        <category.icon className="w-6 h-6 text-zinc-900 dark:text-white" />
+                                    </div>
+                                    <h3 className="text-xl md:text-2xl font-semibold text-zinc-900 dark:text-white tracking-tight">
+                                        {category.title}
+                                    </h3>
+                                </div>
+
+                                <div className="flex flex-wrap gap-3 mt-auto pt-6 border-t border-zinc-200/50 dark:border-white/10">
+                                    {category.skills.map((skill) => (
+                                        <span 
+                                            key={skill} 
+                                            className="px-4 py-2 bg-white/80 dark:bg-zinc-900/50 border border-white/80 dark:border-white/5 rounded-full text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-sm transition-transform hover:-translate-y-0.5"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
             </div>
-
-            <div className="absolute inset-0 z-10">
-                <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={1} gl={{ powerPreference: "high-performance" }}>
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} intensity={1} />
-                    <Constellation />
-                    <AutoRotate />
-                </Canvas>
-            </div>
-
-            {/* Fade gradient at bottom */}
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-zinc-50 to-transparent z-20 pointer-events-none" />
-
+            
         </section>
     )
 }

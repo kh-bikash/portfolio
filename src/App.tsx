@@ -4,6 +4,7 @@ import { GlobalUIWrapper } from "@/components/GlobalUIWrapper"
 import Home from "@/pages/Home"
 import Work from "@/pages/Work"
 import ProjectDetail from "@/pages/ProjectDetail"
+import { CustomCursor } from "@/components/dom/CustomCursor"
 
 function AppContent() {
     const location = useLocation()
@@ -11,6 +12,7 @@ function AppContent() {
 
     const Content = (
         <GlobalUIWrapper>
+            <CustomCursor />
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/work" element={<Work />} />

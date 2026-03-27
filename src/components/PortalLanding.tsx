@@ -2,123 +2,111 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import React, { useState, useEffect } from "react"
-import { GlitchText } from "@/components/dom/GlitchText"
 
-function DataStream() {
+function AmbientIntelligence() {
     return (
-        <div className="absolute inset-0 z-0 overflow-hidden opacity-[0.03] pointer-events-none">
-            {Array.from({ length: 10 }).map((_, i) => (
-                <div
-                    key={i}
-                    className="absolute top-0 text-[10px] font-mono text-zinc-900 whitespace-nowrap animate-marquee"
-                    style={{
-                        left: `${i * 10}%`,
-                        animationDuration: `${10 + Math.random() * 20}s`,
-                        animationDelay: `-${Math.random() * 10}s`,
-                        writingMode: 'vertical-rl'
-                    }}
-                >
-                    {Array.from({ length: 50 }).map(() => Math.random() > 0.5 ? '1' : '0').join(' ')}
-                </div>
-            ))}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none mix-blend-screen">
+            <motion.div
+                animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                    rotate: [0, 90, 180, 270, 360]
+                }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-cyan-400/20 rounded-full blur-[120px]"
+            />
+            <motion.div
+                animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.2, 0.5, 0.2],
+                    rotate: [360, 270, 180, 90, 0]
+                }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-blue-500/20 rounded-full blur-[140px]"
+            />
+            <motion.div
+                animate={{
+                    scale: [1.2, 1, 1.2],
+                    opacity: [0.4, 0.7, 0.4],
+                    x: [0, 100, 0],
+                    y: [0, -100, 0]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[20%] left-[30%] w-[40vw] h-[40vw] bg-purple-500/10 rounded-full blur-[100px]"
+            />
         </div>
     )
 }
 
-function Typewriter({ text, delay }: { text: string, delay: number }) {
-    const [displayed, setDisplayed] = useState("")
-
-    useEffect(() => {
-        let i = 0
-        const timer = setTimeout(() => {
-            const interval = setInterval(() => {
-                setDisplayed(text.slice(0, i + 1))
-                i++
-                if (i >= text.length) clearInterval(interval)
-            }, 30)
-            return () => clearInterval(interval)
-        }, delay * 1000)
-        return () => clearTimeout(timer)
-    }, [text, delay])
-
-    return <span>{displayed}<span className="animate-pulse text-cyan-500">_</span></span>
-}
-
-export function PortalLanding({ onEnter }: { onEnter: () => void }) {
+export function PortalLanding({ onEnter, isTransitioning }: { onEnter: () => void, isTransitioning?: boolean }) {
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-center bg-zinc-50 overflow-hidden">
-
-            {/* Background ambience */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-                <DataStream />
-            </div>
+        <section className="relative w-full h-screen flex flex-col items-center justify-center bg-[#fdfdfd] dark:bg-black overflow-hidden font-sans">
+            
+            {/* Apple Intelligence Style Ambient Background */}
+            <AmbientIntelligence />
 
             {/* Content */}
-            <div className="relative z-10 text-center space-y-8 p-6 select-none cursor-default">
-
+            <motion.div 
+                className="relative z-10 text-center px-6 md:px-12 flex flex-col items-center"
+                animate={isTransitioning ? { scale: 5, opacity: 0, filter: "blur(20px)" } : { scale: 1, opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col items-center"
                 >
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <h2 className="text-xs md:text-sm font-mono text-zinc-500 tracking-[0.2em] uppercase">
-                            <GlitchText text="System Online" />
-                        </h2>
-                    </div>
-
-                    <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-zinc-900 mb-4 mix-blend-darken">
-                        BIKASH
+                    <h2 className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 tracking-[0.2em] uppercase mb-8">
+                        Neural Interface Online
+                    </h2>
+                    
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-zinc-900 dark:text-white mb-6 leading-none">
+                        Bikash<span className="text-cyan-500">.</span>
                     </h1>
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-xl md:text-2xl font-light text-zinc-500 tracking-tight">
-                        <span className="font-mono text-cyan-600 font-bold">&lt;AI Engineer /&gt;</span>
-                        <span className="hidden md:block w-px h-6 bg-zinc-300" />
-                        <span>Creative Developer</span>
+                    
+                    <div className="flex flex-col md:flex-row items-center gap-4 text-xl md:text-2xl text-zinc-500 font-light tracking-tight">
+                        <span className="text-zinc-900 dark:text-white font-medium">AI Engineer</span>
+                        <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                        <span>System Architect</span>
                     </div>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 1 }}
-                    className="max-w-xl mx-auto h-12" // Height reserved for typewriter
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="mt-8 max-w-lg text-lg text-zinc-500 dark:text-zinc-400 font-light leading-relaxed"
                 >
-                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed font-mono">
-                        <Typewriter text="Architecting neural networks and immersive digital experiences. Welcome to my digital cortex." delay={0.8} />
-                    </p>
-                </motion.div>
+                    Step into my intelligence engine. Architecting elegant neural networks and seamless digital experiences.
+                </motion.p>
 
                 <motion.button
                     onClick={onEnter}
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ delay: 2.5 }}
-                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 mt-12 overflow-hidden rounded-full hover:bg-zinc-800 transition-all ring-1 ring-zinc-900/5 shadow-2xl shadow-zinc-500/20 active:scale-95"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ 
+                        opacity: { duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] },
+                        y: { duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] },
+                        scale: { duration: 0.2 }
+                    }}
+                    className="group relative inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 text-white dark:bg-white dark:text-black mt-16 rounded-full font-medium transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.16)] dark:shadow-none"
                 >
-                    {/* Cyber Glass Shine */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-zinc-50">Enter System</span>
-                    <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform" />
+                    <span>Initialize System</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </motion.button>
-
-            </div>
-
-            {/* Footer info */}
+            </motion.div>
+            
             <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                className="absolute bottom-12 text-[10px] font-mono text-zinc-400 tracking-widest uppercase"
+                animate={isTransitioning ? { opacity: 0 } : { opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8 }}
+                className="absolute bottom-12 text-sm text-zinc-400 dark:text-zinc-600 font-medium"
             >
-                System v2.0 // Neural Link Ready
+                2026 © Kh Bikash
             </motion.div>
-
         </section>
     )
 }

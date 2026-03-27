@@ -1,0 +1,30 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg" style="background:#000">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00ffff"/>
+      <stop offset="100%" stop-color="#0000ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#001111"/>
+  <rect width="400" height="300" fill="url(#g)" opacity="0.1"/>
+  
+  <!-- Grid -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#004444" stroke-width="1"/>
+  </pattern>
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Nodes -->
+  <circle cx="100" cy="150" r="10" fill="#00ffff"/>
+  <circle cx="200" cy="100" r="10" fill="#00ffff"/>
+  <circle cx="200" cy="200" r="10" fill="#00ffff"/>
+  <circle cx="300" cy="150" r="10" fill="#00ffff"/>
+  
+  <!-- Connections -->
+  <line x1="100" y1="150" x2="200" y2="100" stroke="#00ffff" stroke-width="2"/>
+  <line x1="100" y1="150" x2="200" y2="200" stroke="#00ffff" stroke-width="2"/>
+  <line x1="200" y1="100" x2="300" y2="150" stroke="#00ffff" stroke-width="2"/>
+  <line x1="200" y1="200" x2="300" y2="150" stroke="#00ffff" stroke-width="2"/>
+  
+  <text x="20" y="280" font-family="monospace" fill="#00ffff" font-size="14">FIG 1.0 // NEURAL_NET</text>
+</svg>

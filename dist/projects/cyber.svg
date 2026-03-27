@@ -1,0 +1,14 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg" style="background:#000">
+  <rect width="400" height="300" fill="#1a0b00"/>
+  
+  <!-- Terminal Screen -->
+  <rect x="50" y="50" width="300" height="180" stroke="#ea580c" stroke-width="2" fill="#000" rx="5"/>
+  <text x="70" y="90" font-family="monospace" fill="#ea580c" font-size="12">> INITIALIZING HACK...</text>
+  <text x="70" y="110" font-family="monospace" fill="#ea580c" font-size="12">> BYPASSING FIREWALL...</text>
+  <text x="70" y="130" font-family="monospace" fill="#ea580c" font-size="12">> ACCESS GRANTED.</text>
+  
+  <!-- Keyboard area -->
+  <rect x="50" y="240" width="300" height="40" stroke="#ea580c" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <text x="20" y="280" font-family="monospace" fill="#ea580c" font-size="14">FIG 3.0 // CYBER_DECK</text>
+</svg>

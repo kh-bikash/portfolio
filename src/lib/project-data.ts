@@ -1,139 +1,88 @@
 export interface Project {
     id: string
     title: string
-    type: string
     description: string
-    year: string
-    image: string
-    tech: string[]
-    stats: {
-        performance: string
-        latency: string
-        uptime: string
-    }
-    story?: {
-        title: string
-        text: string
-        visualState: "chaos" | "grid" | "network" | "code"
-    }[]
+    githubUrl: string
+    topics: string[]
+    stars: number
+    language: string
+    updatedAt: string
 }
 
-export const PROJECTS: Project[] = [
-    {
-        id: "reflex-cube",
-        title: "REFLEX CUBE",
-        type: "AI PLATFORM",
-        year: "2025",
-        description: "Modular AI-powered platform for building NLP applications directly from prompts. Features a Cube Architecture where each module acts as an independent intelligent agent.",
-        image: "/dark-ai-neural-network-visualization-platform.jpg",
-        tech: ["TypeScript", "NLP", "AI Agents", "React"],
-        stats: { performance: "High", latency: "50ms", uptime: "99.9%" },
-        story: [
-            {
-                title: "THE PROBLEM",
-                text: "Building complex AI applications requires stitching together disparate tools. We needed a unified, modular system.",
-                visualState: "chaos"
-            },
-            {
-                title: "CUBE ARCHITECTURE",
-                text: "We designed 'Cubes' - independent AI modules that can be orchestrated together. This allows for infinite scalability and mix-and-match capabilities.",
-                visualState: "grid"
-            },
-            {
-                title: "PROMPT TO APP",
-                text: "The core engine translates natural language prompts into functional application logic, bridging the gap between idea and execution.",
-                visualState: "network"
+function extractDescriptionFromReadme(markdown: string): string {
+    const lines = markdown.split('\n')
+    for (const line of lines) {
+        const trimmed = line.trim()
+        // Skip empty lines, headers, blockquotes, HTML tags, images/badges, and lists
+        if (
+            trimmed &&
+            !trimmed.startsWith('#') &&
+            !trimmed.startsWith('>') &&
+            !trimmed.startsWith('<') &&
+            !trimmed.startsWith('![') &&
+            !trimmed.startsWith('-') &&
+            !trimmed.startsWith('*')
+        ) {
+            // Remove any markdown links e.g. [text](url) -> text
+            const textOnly = trimmed.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+            return textOnly.length > 200 ? textOnly.substring(0, 197) + '...' : textOnly
+        }
+    }
+    return ''
+}
+
+async function fetchReadmeDescription(username: string, repoName: string, defaultBranch: string): Promise<string> {
+    const possibleNames = ['README.md', 'readme.md', 'README.txt', 'Readme.md']
+    
+    for (const name of possibleNames) {
+        try {
+            const res = await fetch(`https://raw.githubusercontent.com/${username}/${repoName}/${defaultBranch}/${name}`)
+            if (res.ok) {
+                const markdown = await res.text()
+                const desc = extractDescriptionFromReadme(markdown)
+                if (desc) return desc
             }
-        ]
-    },
-    {
-        id: "nova-erp",
-        title: "NOVA ERP",
-        type: "EDTECH SYSTEM",
-        year: "2025",
-        description: "Comprehensive University ERP with multi-role access (Admin, Faculty, Student). Manages attendance, fees, exams, and hostel logistics securely.",
-        image: "/minimal-dark-apple-ecommerce.jpg",
-        tech: ["Next.js", "PostgreSQL", "Auth", "TypeScript"],
-        stats: { performance: "50K+ Users", latency: "120ms", uptime: "99.9%" }
-    },
-    {
-        id: "legalease-ai",
-        title: "LEGALEASE AI",
-        type: "LEGAL TECH",
-        year: "2025",
-        description: "AI tool to summarize, question, and highlight legal documents (PDF/TXT). Accelerates legal research and document understanding.",
-        image: "/dark-futuristic-web-interface-quantum-computing.jpg",
-        tech: ["Python", "LLMs", "NLP", "PDF Processing"],
-        stats: { performance: "100 Pgs/min", latency: "2s", uptime: "99.5%" }
-    },
-    {
-        id: "sign-lang",
-        title: "SIGN DETECTOR",
-        type: "COMPUTER VISION",
-        year: "2025",
-        description: "Real-time sign language detection system using MediaPipe and Deep Learning. Bridges communication gaps with instant translation.",
-        image: "/dark-vr-virtual-reality-headset.jpg",
-        tech: ["Python", "OpenCV", "MediaPipe", "TensorFlow"],
-        stats: { performance: "30 FPS", latency: "33ms", uptime: "100%" }
-    },
-    {
-        id: "algogenesis",
-        title: "ALGOGENESIS 3D",
-        type: "ALGO VISUALIZATION",
-        year: "2025",
-        description: "Visualizing complex algorithms in 3D. Transforms code execution into stunning, interactive animations for better understanding.",
-        image: "/dark-digital-art-installation-museum.jpg",
-        tech: ["Python", "3D Graphics", "Education", "React"],
-        stats: { performance: "60 FPS", latency: "16ms", uptime: "100%" }
-    },
-    {
-        id: "student-yatra",
-        title: "STUDENT YATRA",
-        type: "CAREER PLATFORM",
-        year: "2025",
-        description: "Full-stack career guidance platform with face recognition login, skill tracking, and AI-based interview prep.",
-        image: "/dark-modern-tesla-portfolio.jpg",
-        tech: ["JavaScript", "React", "AI Models", "FaceAPI"],
-        stats: { performance: "Fast", latency: "100ms", uptime: "99.9%" }
-    },
-    {
-        id: "fitness-tracker",
-        title: "FITNESS TRACKER",
-        type: "HEALTH TECH",
-        year: "2025",
-        description: "Personal health tracking application for monitoring workouts, nutrition, and progress over time.",
-        image: "/dark-mobile-game-ui.jpg",
-        tech: ["TypeScript", "React", "Data Viz", "APIs"],
-        stats: { performance: "Real-time", latency: "50ms", uptime: "99.9%" }
-    },
-    {
-        id: "riddle-game",
-        title: "RIDDLE GAME",
-        type: "INTERACTIVE WEB",
-        year: "2025",
-        description: "Interactive puzzle game challenging users to solve riddles. Simple, engaging, and fun.",
-        image: "/dark-cyberpunk-game-interface.jpg",
-        tech: ["HTML", "JavaScript", "CSS", "Game Logic"],
-        stats: { performance: "60 FPS", latency: "0ms", uptime: "100%" }
-    },
-    {
-        id: "reflex-cube-v1",
-        title: "REFLEXCUBE V1",
-        type: "LEGACY SYSTEM",
-        year: "2025",
-        description: "The initial prototype of the Reflex Cube system. Laid the foundation for the modular AI architecture.",
-        image: "/dark-multiplayer-collaboration-tool.jpg",
-        tech: ["Python", "Prototype", "Research", "Testing"],
-        stats: { performance: "Experimental", latency: "Var", uptime: "N/A" }
+        } catch (e) {
+            // Ignore fetch errors and try next
+        }
     }
-]
-
-export function getProject(id: string) {
-    return PROJECTS.find(p => p.id === id)
+    return 'No description provided.'
 }
 
-export function getNextProject(id: string) {
-    const index = PROJECTS.findIndex(p => p.id === id)
-    if (index === -1) return null
-    return PROJECTS[(index + 1) % PROJECTS.length]
+export async function fetchGithubProjects(username: string = 'kh-bikash'): Promise<Project[]> {
+    try {
+        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`)
+        }
+        const repos = await response.json()
+        
+        // Filter out forks and the profile readme repository
+        const validRepos = repos.filter((r: any) => !r.fork && r.name !== username)
+
+        const projects = await Promise.all(validRepos.map(async (repo: any) => {
+            let desc = repo.description
+            
+            // If there's no description from the GitHub API, attempt to extract it from the README
+            if (!desc || desc.trim() === '') {
+                desc = await fetchReadmeDescription(username, repo.name, repo.default_branch || 'main')
+            }
+
+            return {
+                id: repo.name,
+                title: repo.name.replace(/-/g, ' '),
+                description: desc,
+                githubUrl: repo.html_url,
+                topics: repo.topics || [],
+                stars: repo.stargazers_count || 0,
+                language: repo.language || 'Unknown',
+                updatedAt: repo.updated_at
+            }
+        }))
+
+        return projects
+    } catch (error) {
+        console.error('Failed to fetch projects:', error)
+        return []
+    }
 }
