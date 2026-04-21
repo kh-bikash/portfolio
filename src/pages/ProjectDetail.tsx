@@ -3,6 +3,9 @@ import { Link, useParams } from "react-router-dom"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useProjectStore } from "@/store/useProjectStore"
 import { Github, Star, ExternalLink, CalendarDays, Code2, Cpu, Server, Shield, BrainCircuit, Database, Cloud, Zap, Layers, Code, Box, ChevronLeft } from "lucide-react"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 
 // Deterministic aesthetic generator
 const getProjectAesthetic = (title: string) => {
@@ -168,6 +171,21 @@ export default function ProjectDetail() {
                         </a>
                     </div>
                 </motion.div>
+
+                {/* README Markdown */}
+                {project.readme && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="prose prose-zinc dark:prose-invert prose-lg md:prose-xl max-w-none mb-20 prose-headings:font-semibold prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-white/10"
+                    >
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                            {project.readme}
+                        </ReactMarkdown>
+                    </motion.div>
+                )}
 
                 {/* Topics / Tech Stack Matrix */}
                 {project.topics && project.topics.length > 0 && (

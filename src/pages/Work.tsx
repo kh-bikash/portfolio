@@ -25,6 +25,29 @@ const getProjectAesthetic = (title: string) => {
     }
 }
 
+// Simple heuristic categorization
+const getProjectCategory = (project: any) => {
+    const text = [project.title, project.description, ...(project.topics || [])].join(' ').toLowerCase();
+    
+    // Check keywords to determine category
+    if (text.includes('ml') || text.includes('ai') || text.includes('llm') || text.includes('gpt') || text.includes('machine learning') || text.includes('artificial intelligence') || text.includes('reinforcement') || text.includes('neural')) {
+        return "AI / ML";
+    }
+    if (text.includes('fullstack') || text.includes('full-stack') || text.includes('next.js') || text.includes('react') || text.includes('frontend') || text.includes('ui/') || text.includes('portfolio') || text.includes('dashboard') || text.includes('web')) {
+        return "Full Stack";
+    }
+    if (text.includes('system') || text.includes('distributed') || text.includes('backend') || text.includes('api') || text.includes('microservice') || text.includes('engine') || text.includes('fastapi') || text.includes('architecture')) {
+        return "Backend & Systems";
+    }
+    if (text.includes('bot') || text.includes('discord') || text.includes('slack')) {
+        return "Bots & Automations";
+    }
+    if (project.language && project.language !== 'Unknown') {
+        return project.language;
+    }
+    return "Other";
+}
+
 export default function Work() {
     const navigate = useNavigate()
     const { projects, isLoading, error, fetchProjects } = useProjectStore()
@@ -38,11 +61,23 @@ export default function Work() {
         fetchProjects()
     }, [fetchProjects])
 
-    // Extract unique languages
-    const languages = ["All", ...Array.from(new Set(projects.map(p => p.language).filter(l => l && l !== 'Unknown')))]
+    // Group projects by category
+    const categorizedProjects = projects.map(p => ({ ...p, category: getProjectCategory(p) }))
 
-    // Sort by stars descending and filter by language
-    const filteredProjects = projects.filter(p => activeFilter === "All" || p.language === activeFilter)
+    // Extract unique categories, but prioritize specific ones at the front
+    const uniqueCategories = Array.from(new Set(categorizedProjects.map(p => p.category)))
+    const sortedCategories = uniqueCategories.sort((a, b) => {
+        // AI / ML and Full Stack are heavily prioritized
+        if (a.includes('AI') || a.includes('ML')) return -1;
+        if (b.includes('AI') || b.includes('ML')) return 1;
+        if (a.includes('Full')) return -1;
+        if (b.includes('Full')) return 1;
+        return a.localeCompare(b);
+    })
+    const categories = ["All", ...sortedCategories]
+
+    // Sort by stars descending and filter by category
+    const filteredProjects = categorizedProjects.filter(p => activeFilter === "All" || p.category === activeFilter)
     const sortedProjects = [...filteredProjects].sort((a, b) => b.stars - a.stars)
 
     const handleScroll = () => {
@@ -112,7 +147,7 @@ export default function Work() {
             </div>
 
             {/* Apple Segmented Control Filter */}
-            {!isLoading && !error && languages.length > 2 && (
+            {!isLoading && !error && categories.length > 2 && (
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -120,20 +155,20 @@ export default function Work() {
                     className="relative z-10 px-8 md:px-16 mt-8 flex"
                 >
                     <div className="flex items-center gap-2 p-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-x-auto hide-scrollbar max-w-full">
-                        {languages.map((lang, index) => (
+                        {categories.map((cat, index) => (
                             <button
-                                key={lang}
-                                onClick={() => setActiveFilter(lang as string)}
-                                className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-colors flex-shrink-0 ${activeFilter === lang ? 'text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+                                key={cat}
+                                onClick={() => setActiveFilter(cat)}
+                                className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-colors flex-shrink-0 ${activeFilter === cat ? 'text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
                             >
-                                {activeFilter === lang && (
+                                {activeFilter === cat && (
                                     <motion.div 
                                         layoutId="activeFilter"
                                         className="absolute inset-0 bg-white dark:bg-white/10 shadow-sm border border-black/5 dark:border-white/5 rounded-full"
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
-                                <span className="relative z-10">{lang}</span>
+                                <span className="relative z-10">{cat}</span>
                             </button>
                         ))}
                     </div>
@@ -214,9 +249,9 @@ export default function Work() {
                                         </div>
 
                                         <div className="mt-auto">
-                                            {project.language !== 'Unknown' && (
+                                            {project.category && (
                                                 <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-zinc-500 dark:text-zinc-400 mb-4 block">
-                                                    {project.language}
+                                                    {project.category} · {project.language}
                                                 </span>
                                             )}
                                             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-6 leading-tight">

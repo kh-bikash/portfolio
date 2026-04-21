@@ -2,6 +2,7 @@ export interface Project {
     id: string
     title: string
     description: string
+    readme?: string
     githubUrl: string
     topics: string[]
     stars: number
@@ -31,7 +32,7 @@ function extractDescriptionFromReadme(markdown: string): string {
     return ''
 }
 
-async function fetchReadmeDescription(username: string, repoName: string, defaultBranch: string): Promise<string> {
+async function fetchReadmeData(username: string, repoName: string, defaultBranch: string): Promise<{ description: string, readme: string } | null> {
     const possibleNames = ['README.md', 'readme.md', 'README.txt', 'Readme.md']
     
     for (const name of possibleNames) {
@@ -40,13 +41,13 @@ async function fetchReadmeDescription(username: string, repoName: string, defaul
             if (res.ok) {
                 const markdown = await res.text()
                 const desc = extractDescriptionFromReadme(markdown)
-                if (desc) return desc
+                return { description: desc || 'No description provided.', readme: markdown }
             }
         } catch (e) {
             // Ignore fetch errors and try next
         }
     }
-    return 'No description provided.'
+    return null
 }
 
 export async function fetchGithubProjects(username: string = 'kh-bikash'): Promise<Project[]> {
@@ -62,16 +63,23 @@ export async function fetchGithubProjects(username: string = 'kh-bikash'): Promi
 
         const projects = await Promise.all(validRepos.map(async (repo: any) => {
             let desc = repo.description
+            let readmeContent = ''
             
+            const readmeData = await fetchReadmeData(username, repo.name, repo.default_branch || 'main')
+
             // If there's no description from the GitHub API, attempt to extract it from the README
             if (!desc || desc.trim() === '') {
-                desc = await fetchReadmeDescription(username, repo.name, repo.default_branch || 'main')
+                desc = readmeData ? readmeData.description : 'No description provided.'
+            }
+            if (readmeData) {
+                readmeContent = readmeData.readme
             }
 
             return {
                 id: repo.name,
                 title: repo.name.replace(/-/g, ' '),
-                description: desc,
+                description: desc || 'No description provided.',
+                readme: readmeContent,
                 githubUrl: repo.html_url,
                 topics: repo.topics || [],
                 stars: repo.stargazers_count || 0,
