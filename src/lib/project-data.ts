@@ -58,35 +58,23 @@ export async function fetchGithubProjects(username: string = 'kh-bikash'): Promi
         }
         const repos = await response.json()
         
-        // Filter out forks and the profile readme repository
         const validRepos = repos.filter((r: any) => !r.fork && r.name !== username)
 
-        const projects = await Promise.all(validRepos.map(async (repo: any) => {
-            let desc = repo.description
-            let readmeContent = ''
-            
-            const readmeData = await fetchReadmeData(username, repo.name, repo.default_branch || 'main')
-
-            // If there's no description from the GitHub API, attempt to extract it from the README
-            if (!desc || desc.trim() === '') {
-                desc = readmeData ? readmeData.description : 'No description provided.'
-            }
-            if (readmeData) {
-                readmeContent = readmeData.readme
-            }
+        const projects = validRepos.map((repo: any) => {
+            const desc = repo.description || 'No description provided.'
 
             return {
                 id: repo.name,
                 title: repo.name.replace(/-/g, ' '),
-                description: desc || 'No description provided.',
-                readme: readmeContent,
+                description: desc,
+                readme: '',
                 githubUrl: repo.html_url,
                 topics: repo.topics || [],
                 stars: repo.stargazers_count || 0,
                 language: repo.language || 'Unknown',
                 updatedAt: repo.updated_at
             }
-        }))
+        })
 
         return projects
     } catch (error) {

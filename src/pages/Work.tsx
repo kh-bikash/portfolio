@@ -2,26 +2,24 @@ import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
 import { useProjectStore } from "@/store/useProjectStore"
-import { Github, Star, ChevronLeft, ChevronRight, Cpu, Server, Shield, BrainCircuit, Database, Cloud, Zap, Layers, Code, Box } from "lucide-react"
+import { Github, Star, ChevronLeft, ChevronRight } from "lucide-react"
 
 // Deterministic aesthetic generator based on project title
 const getProjectAesthetic = (title: string) => {
     const hash = title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
     
+    // Soft watercolor sky and nature gradients
     const gradients = [
-        "radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.4) 0%, transparent 50%)", // Purple
-        "radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.4) 0%, transparent 50%)",   // Cyan
-        "radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.4) 0%, transparent 50%)",  // Emerald
-        "radial-gradient(circle at 100% 100%, rgba(249, 115, 22, 0.4) 0%, transparent 50%)",  // Orange
-        "radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.4) 0%, transparent 50%)",  // Indigo
-        "radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.4) 0%, transparent 50%)",  // Pink
+        "radial-gradient(circle at 100% 100%, rgba(135, 206, 235, 0.2) 0%, transparent 60%)", // Sky Blue
+        "radial-gradient(circle at 100% 100%, rgba(125, 140, 110, 0.25) 0%, transparent 60%)", // Sage Green
+        "radial-gradient(circle at 100% 100%, rgba(196, 149, 106, 0.2) 0%, transparent 60%)", // Warm Sunset
+        "radial-gradient(circle at 100% 100%, rgba(130, 82, 112, 0.15) 0%, transparent 60%)", // Twilight Purple
+        "radial-gradient(circle at 100% 100%, rgba(184, 197, 201, 0.25) 0%, transparent 60%)", // Morning Mist
+        "radial-gradient(circle at 100% 100%, rgba(232, 168, 124, 0.2) 0%, transparent 60%)", // Golden Amber
     ]
-
-    const icons = [Cpu, Server, Shield, BrainCircuit, Database, Cloud, Zap, Layers, Code, Box]
     
     return {
         gradient: gradients[hash % gradients.length],
-        Icon: icons[hash % icons.length]
     }
 }
 
@@ -29,7 +27,6 @@ const getProjectAesthetic = (title: string) => {
 const getProjectCategory = (project: any) => {
     const text = [project.title, project.description, ...(project.topics || [])].join(' ').toLowerCase();
     
-    // Check keywords to determine category
     if (text.includes('ml') || text.includes('ai') || text.includes('llm') || text.includes('gpt') || text.includes('machine learning') || text.includes('artificial intelligence') || text.includes('reinforcement') || text.includes('neural')) {
         return "AI / ML";
     }
@@ -48,6 +45,16 @@ const getProjectCategory = (project: any) => {
     return "Other";
 }
 
+const getInitialsForCategory = (category: string) => {
+    switch (category) {
+        case "AI / ML": return "AI"
+        case "Full Stack": return "FS"
+        case "Backend & Systems": return "SYS"
+        case "Bots & Automations": return "BOT"
+        default: return "PRJ"
+    }
+}
+
 export default function Work() {
     const navigate = useNavigate()
     const { projects, isLoading, error, fetchProjects } = useProjectStore()
@@ -56,18 +63,14 @@ export default function Work() {
     const [canScrollRight, setCanScrollRight] = useState(true)
     const [activeFilter, setActiveFilter] = useState("All")
 
-    // ALWAYS fetches live GitHub data on mount
     useEffect(() => {
         fetchProjects()
     }, [fetchProjects])
 
-    // Group projects by category
     const categorizedProjects = projects.map(p => ({ ...p, category: getProjectCategory(p) }))
 
-    // Extract unique categories, but prioritize specific ones at the front
     const uniqueCategories = Array.from(new Set(categorizedProjects.map(p => p.category)))
     const sortedCategories = uniqueCategories.sort((a, b) => {
-        // AI / ML and Full Stack are heavily prioritized
         if (a.includes('AI') || a.includes('ML')) return -1;
         if (b.includes('AI') || b.includes('ML')) return 1;
         if (a.includes('Full')) return -1;
@@ -76,7 +79,6 @@ export default function Work() {
     })
     const categories = ["All", ...sortedCategories]
 
-    // Sort by stars descending and filter by category
     const filteredProjects = categorizedProjects.filter(p => activeFilter === "All" || p.category === activeFilter)
     const sortedProjects = [...filteredProjects].sort((a, b) => b.stars - a.stars)
 
@@ -95,23 +97,17 @@ export default function Work() {
     }
 
     return (
-        <main className="relative w-full min-h-screen bg-[#fafafa] dark:bg-[#000000] text-zinc-900 dark:text-zinc-100 selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black font-sans overflow-x-hidden flex flex-col pb-32">
+        <main className="relative w-full min-h-screen bg-[var(--paper)] text-[var(--ink)] font-sans overflow-x-hidden flex flex-col pb-32 paper-texture">
             
-            {/* Soft Ambient Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply dark:mix-blend-screen opacity-50 dark:opacity-30">
-                <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-zinc-200 dark:bg-white/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-zinc-300 dark:bg-white/5 rounded-full blur-[120px]" />
-            </div>
-
-            {/* Premium Header */}
-            <nav className="fixed top-8 left-8 md:left-12 z-50 flex items-center justify-between w-[calc(100%-4rem)] md:w-[calc(100%-6rem)] mix-blend-difference">
-                <Link to="/?mode=brain">
-                    <button className="text-sm font-semibold tracking-wide text-white hover:opacity-50 transition-opacity flex items-center gap-2">
+            {/* Header */}
+            <nav className="fixed top-6 left-6 md:left-12 z-50 flex items-center justify-between w-[calc(100%-3rem)] md:w-[calc(100%-6rem)]">
+                <Link to="/">
+                    <button className="text-sm font-serif font-bold tracking-wide text-[var(--ink)] hover:opacity-60 transition-opacity flex items-center gap-2 px-5 py-3 bg-[var(--paper-light)]/90 backdrop-blur-md border border-[var(--border)] rounded-full shadow-paper cursor-pointer">
                         ← <span>Home</span>
                     </button>
                 </Link>
-                <div className="text-sm font-semibold tracking-widest uppercase text-white opacity-50">
-                    Live Repositories
+                <div className="text-sm font-serif font-bold tracking-widest uppercase text-[var(--ink-faded)] px-5 py-3 bg-[var(--paper-light)]/90 backdrop-blur-md border border-[var(--border)] rounded-full shadow-paper">
+                    Project Archives
                 </div>
             </nav>
 
@@ -121,9 +117,9 @@ export default function Work() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-semibold tracking-tighter leading-[0.9]">
-                        Project <br className="hidden md:block" />
-                        <span className="text-zinc-400 dark:text-zinc-600 font-light italic">Showcase.</span>
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-light tracking-tight leading-[1.1]">
+                        Selected <br className="hidden md:block" />
+                        <span className="text-[var(--brush-warm)]">Works.</span>
                     </h1>
                 </motion.div>
 
@@ -132,39 +128,39 @@ export default function Work() {
                     <button 
                         onClick={() => scrollBy('left')}
                         disabled={!canScrollLeft}
-                        className="p-4 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 disabled:opacity-30 transition-all hover:bg-white/80 dark:hover:bg-white/20"
+                        className="p-4 rounded-full bg-[var(--paper-light)]/60 backdrop-blur-md border border-[var(--border)] disabled:opacity-30 transition-all hover:bg-[var(--paper-warm)] shadow-paper"
                     >
-                        <ChevronLeft className="w-6 h-6" />
+                        <ChevronLeft className="w-5 h-5 text-[var(--ink)]" />
                     </button>
                     <button 
                         onClick={() => scrollBy('right')}
                         disabled={!canScrollRight}
-                        className="p-4 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 disabled:opacity-30 transition-all hover:bg-white/80 dark:hover:bg-white/20"
+                        className="p-4 rounded-full bg-[var(--paper-light)]/60 backdrop-blur-md border border-[var(--border)] disabled:opacity-30 transition-all hover:bg-[var(--paper-warm)] shadow-paper"
                     >
-                        <ChevronRight className="w-6 h-6" />
+                        <ChevronRight className="w-5 h-5 text-[var(--ink)]" />
                     </button>
                 </div>
             </div>
 
-            {/* Apple Segmented Control Filter */}
+            {/* Segmented Filter Control */}
             {!isLoading && !error && categories.length > 2 && (
                 <motion.div 
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="relative z-10 px-8 md:px-16 mt-8 flex"
+                    className="relative z-10 px-8 md:px-16 mt-12 flex"
                 >
-                    <div className="flex items-center gap-2 p-1.5 bg-black/5 dark:bg-white/5 rounded-full overflow-x-auto hide-scrollbar max-w-full">
-                        {categories.map((cat, index) => (
+                    <div className="flex items-center gap-2 p-1.5 bg-[var(--paper-warm)]/80 border border-[var(--border)] rounded-full overflow-x-auto hide-scrollbar max-w-full shadow-paper">
+                        {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveFilter(cat)}
-                                className={`relative px-5 py-2 rounded-full text-sm font-semibold transition-colors flex-shrink-0 ${activeFilter === cat ? 'text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+                                className={`relative px-6 py-2.5 rounded-full text-sm font-sans font-bold transition-colors flex-shrink-0 cursor-pointer ${activeFilter === cat ? 'text-[var(--ink)]' : 'text-[var(--ink-faded)] hover:text-[var(--ink)]'}`}
                             >
                                 {activeFilter === cat && (
                                     <motion.div 
                                         layoutId="activeFilter"
-                                        className="absolute inset-0 bg-white dark:bg-white/10 shadow-sm border border-black/5 dark:border-white/5 rounded-full"
+                                        className="absolute inset-0 bg-[var(--paper-light)] border border-[var(--border)] rounded-full shadow-sm"
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
@@ -178,12 +174,12 @@ export default function Work() {
             {/* Status Indicators */}
             {isLoading && (
                 <div className="flex-grow flex justify-center items-center">
-                    <div className="w-8 h-8 border-[3px] border-zinc-900 dark:border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-6 h-6 border-[2px] border-[var(--ink)] border-t-transparent rounded-full animate-spin"></div>
                 </div>
             )}
             {error && (
-                <div className="flex-grow flex justify-center items-center text-red-500 font-medium">
-                    Failed to synchronize GitHub Live Data: {error}
+                <div className="flex-grow flex justify-center items-center text-[var(--brush-warm)] font-medium">
+                    Failed to synchronize project archive: {error}
                 </div>
             )}
 
@@ -193,48 +189,47 @@ export default function Work() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className="relative z-10 w-full mt-8 mb-16 overflow-hidden h-[65vh] min-h-[500px] 2xl:min-h-[700px]"
+                    className="relative z-10 w-full mt-10 mb-16 overflow-hidden h-[60vh] min-h-[480px] 2xl:min-h-[600px]"
                 >
                     <div 
                         ref={carouselRef}
                         onScroll={handleScroll}
-                        className="flex h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar px-8 md:px-16 gap-6 md:gap-12 pb-8 items-stretch"
+                        className="flex h-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar px-8 md:px-16 gap-6 md:gap-10 pb-8 items-stretch"
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {sortedProjects.map((project, i) => {
-                            const { gradient, Icon } = getProjectAesthetic(project.title)
+                            const { gradient } = getProjectAesthetic(project.title)
+                            const initials = getInitialsForCategory(project.category)
 
                             return (
                                 <motion.div
                                     key={project.id}
-                                    initial={{ opacity: 0, x: 100, scale: 0.95 }}
+                                    initial={{ opacity: 0, x: 80, scale: 0.97 }}
                                     animate={{ opacity: 1, x: 0, scale: 1 }}
-                                    transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                    transition={{ duration: 0.8, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                                     onClick={() => navigate(`/work/${project.id}`)}
-                                    className="snap-center flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] h-full rounded-[2.5rem] md:rounded-[3rem] bg-white/60 dark:bg-white/5 backdrop-blur-3xl border border-white/80 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none overflow-hidden relative cursor-pointer group transition-transform hover:scale-[1.02]"
+                                    className="snap-center flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[42vw] h-full rounded-3xl bg-[var(--paper-light)] border border-[var(--border)] shadow-paper overflow-hidden relative cursor-pointer group transition-all duration-500 hover:-translate-y-1 hover:shadow-paper-hover"
                                 >
-                                    {/* Apple Style Inner Graphic Generator */}
+                                    {/* Watercolor Gradient Overlay */}
                                     <div 
-                                        className="absolute inset-0 z-0 opacity-100 transition-opacity duration-700 pointer-events-none"
+                                        className="absolute inset-0 z-0 opacity-100 pointer-events-none"
                                         style={{ background: gradient }}
                                     />
                                     
-                                    {/* Massive Background Icon Graphic */}
-                                    <motion.div 
-                                        className="absolute -right-10 -bottom-10 z-0 opacity-10 dark:opacity-20 pointer-events-none text-zinc-900 dark:text-white"
-                                        animate={{ rotate: [-5, 5, -5] }}
-                                        transition={{ duration: 10 + (i % 5), repeat: Infinity, ease: "easeInOut" }}
+                                    {/* Massive Background Category Initials Watermark */}
+                                    <div 
+                                        className="absolute right-4 bottom-4 z-0 opacity-[0.04] select-none pointer-events-none text-[16rem] font-sans leading-none font-black text-[var(--ink)]"
                                     >
-                                        <Icon className="w-64 h-64 md:w-96 md:h-96" />
-                                    </motion.div>
-
+                                        {initials}
+                                    </div>
+ 
                                     {/* Content Container */}
-                                    <div className="relative z-10 p-8 md:p-12 h-full flex flex-col justify-between">
+                                    <div className="relative z-10 p-8 md:p-10 h-full flex flex-col justify-between">
                                         
                                         <div className="flex justify-between items-start">
-                                            <div className="flex items-center gap-3 bg-white/80 dark:bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white dark:border-white/5 shadow-sm">
-                                                <Star className="w-4 h-4 text-amber-500" />
-                                                <span className="text-xs font-bold text-zinc-900 dark:text-white">{project.stars}</span>
+                                            <div className="flex items-center gap-2 bg-[var(--paper-warm)]/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[var(--border)] shadow-sm">
+                                                <Star className="w-3.5 h-3.5 text-[var(--brush-warm)]" />
+                                                <span className="text-xs font-mono font-medium text-[var(--ink)]">{project.stars}</span>
                                             </div>
                                             
                                             <a 
@@ -242,22 +237,22 @@ export default function Work() {
                                                 target="_blank" 
                                                 rel="noreferrer" 
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="p-4 rounded-full bg-white/40 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-md transition-colors shadow-sm"
+                                                className="p-3.5 rounded-full bg-[var(--paper-warm)]/50 hover:bg-[var(--paper-warm)] border border-[var(--border)] transition-colors shadow-sm text-[var(--ink)]"
                                             >
-                                                <Github className="w-5 h-5 text-zinc-900 dark:text-white" />
+                                                <Github className="w-4 h-4" />
                                             </a>
                                         </div>
-
+ 
                                         <div className="mt-auto">
                                             {project.category && (
-                                                <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-zinc-500 dark:text-zinc-400 mb-4 block">
+                                                <span className="text-xs md:text-sm font-mono tracking-[0.25em] font-bold uppercase text-[var(--ink-faded)] mb-3 block">
                                                     {project.category} · {project.language}
                                                 </span>
                                             )}
-                                            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white mb-6 leading-tight">
+                                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[var(--ink)] mb-4 leading-tight group-hover:text-[var(--brush-warm)] transition-colors duration-300">
                                                 {project.title}
                                             </h2>
-                                            <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-300 font-light max-w-xl line-clamp-3 md:line-clamp-4">
+                                            <p className="text-base md:text-lg text-[var(--ink-light)] font-sans font-bold leading-relaxed max-w-xl line-clamp-3 md:line-clamp-4">
                                                 {project.description}
                                             </p>
                                         </div>
