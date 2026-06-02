@@ -8,9 +8,15 @@ export interface Project {
     stars: number
     language: string
     updatedAt: string
+    forksCount: number
+    watchersCount: number
+    openIssuesCount: number
+    size: number
+    pushedAt: string
+    defaultBranch: string
 }
 
-function extractDescriptionFromReadme(markdown: string): string {
+export function extractDescriptionFromReadme(markdown: string): string {
     const lines = markdown.split('\n')
     for (const line of lines) {
         const trimmed = line.trim()
@@ -72,7 +78,13 @@ export async function fetchGithubProjects(username: string = 'kh-bikash'): Promi
                 topics: repo.topics || [],
                 stars: repo.stargazers_count || 0,
                 language: repo.language || 'Unknown',
-                updatedAt: repo.updated_at
+                updatedAt: repo.updated_at,
+                forksCount: repo.forks_count || 0,
+                watchersCount: repo.watchers_count || 0,
+                openIssuesCount: repo.open_issues_count || 0,
+                size: repo.size || 0,
+                pushedAt: repo.pushed_at || repo.updated_at,
+                defaultBranch: repo.default_branch || 'main'
             }
         })
 
