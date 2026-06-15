@@ -12,6 +12,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { ContactSection } from '@/components/sections/ContactSection'
 import { Footer } from '@/components/sections/Footer'
 import { ProjectsPage } from '@/pages/ProjectsPage'
+import { ResumePage } from '@/pages/ResumePage'
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.hash || '#/')
@@ -48,23 +49,25 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
-  // Scroll to section when returning from projects page
+  // Scroll to section when returning from projects page, or to top when going to main page
   useEffect(() => {
     const hash = window.location.hash
-    if (hash && hash.startsWith('#/') && !hash.startsWith('#/projects')) {
+    if (!hash || hash === '#/') {
+      // Returning to main page — scroll to top
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    } else if (hash.startsWith('#/') && !hash.startsWith('#/projects') && !hash.startsWith('#/resume')) {
       const sectionId = hash.replace('#/', '')
       if (sectionId) {
         setTimeout(() => {
           const el = document.getElementById(sectionId)
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' })
-          }
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
         }, 300)
       }
     }
   }, [currentPath])
 
   const isProjectsPage = currentPath.startsWith('#/projects')
+  const isResumePage = currentPath.startsWith('#/resume')
 
   return (
     <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] noise-overlay">
@@ -73,6 +76,8 @@ function App() {
       <main>
         {isProjectsPage ? (
           <ProjectsPage />
+        ) : isResumePage ? (
+          <ResumePage />
         ) : (
           <>
             <HeroSection />

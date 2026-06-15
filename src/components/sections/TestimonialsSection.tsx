@@ -30,7 +30,6 @@ export function TestimonialsSection() {
   const { ref, isInView } = useScrollReveal()
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Auto-advance
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length)
@@ -47,25 +46,21 @@ export function TestimonialsSection() {
   const testimonial = TESTIMONIALS[currentIndex]
 
   return (
-    <section id="testimonials" className="relative w-full py-28 md:py-36 px-6 md:px-12" style={{ background: 'var(--bg-primary)' }}>
+    <section id="testimonials" className="relative w-full py-28 md:py-36 px-6 md:px-12" style={{ background: 'var(--bg-secondary)' }}>
       <div className="section-divider mb-20" />
 
       <div ref={ref} className="max-w-3xl mx-auto text-center">
         <motion.div
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={revealVariants.fadeUp}
-          transition={{ ...defaultTransition, delay: 0 }}
+          initial="hidden" animate={isInView ? 'visible' : 'hidden'}
+          variants={revealVariants.fadeUp} transition={{ ...defaultTransition, delay: 0 }}
           className="section-label mb-4 justify-center"
         >
           Testimonials
         </motion.div>
 
         <motion.h2
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={revealVariants.fadeUp}
-          transition={{ ...defaultTransition, delay: 0.1 }}
+          initial="hidden" animate={isInView ? 'visible' : 'hidden'}
+          variants={revealVariants.fadeUp} transition={{ ...defaultTransition, delay: 0.1 }}
           className="section-title mb-16"
         >
           What people <span className="text-gradient-gold">say.</span>
@@ -73,15 +68,22 @@ export function TestimonialsSection() {
 
         {/* Testimonial card */}
         <motion.div
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={revealVariants.fadeUp}
-          transition={{ ...defaultTransition, delay: 0.2 }}
-          className="glass-card rounded-2xl p-8 md:p-12 relative"
+          initial="hidden" animate={isInView ? 'visible' : 'hidden'}
+          variants={revealVariants.fadeUp} transition={{ ...defaultTransition, delay: 0.2 }}
+          className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden"
         >
+          {/* Atmospheric corner glow */}
+          <div
+            className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse at top right, rgba(74,222,128,0.04) 0%, transparent 70%)' }}
+          />
+
           {/* Quote icon */}
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-red)]/10 flex items-center justify-center mx-auto mb-6">
-            <Quote className="w-5 h-5 text-[var(--accent-red)]" />
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-6"
+            style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)' }}
+          >
+            <Quote className="w-5 h-5" style={{ color: '#4ade80' }} />
           </div>
 
           <AnimatePresence mode="wait">
@@ -92,13 +94,13 @@ export function TestimonialsSection() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-lg md:text-xl font-sans text-[var(--text-secondary)] leading-relaxed mb-8 italic">
+              <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-8 italic font-light">
                 "{testimonial.quote}"
               </p>
 
               <div>
                 <p className="text-base font-heading font-semibold text-[var(--text-primary)]">{testimonial.name}</p>
-                <p className="text-sm font-sans text-[var(--text-muted)]">
+                <p className="text-sm font-mono text-[var(--text-muted)] mt-1">
                   {testimonial.role} · {testimonial.company}
                 </p>
               </div>
@@ -109,7 +111,7 @@ export function TestimonialsSection() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={() => goTo('prev')}
-              className="p-2 rounded-full glass glass-hover transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              className="p-2 rounded-full glass glass-hover transition-all text-[var(--text-muted)] hover:text-[var(--accent-red)]"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -121,9 +123,12 @@ export function TestimonialsSection() {
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === currentIndex ? 'bg-[var(--accent-red)] w-6' : 'bg-[var(--glass-border)] hover:bg-[var(--text-muted)]'
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentIndex ? 'w-6' : 'w-1.5'
                   }`}
+                  style={{
+                    background: i === currentIndex ? '#4ade80' : 'rgba(74,222,128,0.2)',
+                  }}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
               ))}
@@ -131,7 +136,7 @@ export function TestimonialsSection() {
 
             <button
               onClick={() => goTo('next')}
-              className="p-2 rounded-full glass glass-hover transition-all text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+              className="p-2 rounded-full glass glass-hover transition-all text-[var(--text-muted)] hover:text-[var(--accent-red)]"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-4 h-4" />
