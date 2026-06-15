@@ -75,6 +75,159 @@ const CERTIFICATIONS = [
   },
 ]
 
+// Animated visual backdrops
+function DSATreeBackdrop() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 group-hover:opacity-45 transition-opacity">
+      <svg className="w-full h-full" viewBox="0 0 100 80">
+        <motion.path
+          d="M50,15 L25,40 M50,15 L75,40 M25,40 L12,65 M25,40 L38,65"
+          stroke="rgba(74,222,128,0.12)"
+          strokeWidth="0.75"
+          fill="none"
+        />
+        <motion.path
+          d="M50,15 L25,40 L12,65 L25,40 L38,65 L25,40 L50,15 L75,40"
+          stroke="#4ade80"
+          strokeWidth="1"
+          fill="none"
+          strokeDasharray="20 100"
+          animate={{ strokeDashoffset: [120, 0] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+        />
+        <circle cx="50" cy="15" r="2.5" fill="#0b0b0b" stroke="rgba(74,222,128,0.3)" strokeWidth="0.75" />
+        <circle cx="25" cy="40" r="2.5" fill="#0b0b0b" stroke="rgba(74,222,128,0.3)" strokeWidth="0.75" />
+        <circle cx="75" cy="40" r="2.5" fill="#0b0b0b" stroke="rgba(74,222,128,0.3)" strokeWidth="0.75" />
+        <circle cx="12" cy="65" r="2.5" fill="#0b0b0b" stroke="rgba(74,222,128,0.3)" strokeWidth="0.75" />
+        <circle cx="38" cy="65" r="2.5" fill="#0b0b0b" stroke="rgba(74,222,128,0.3)" strokeWidth="0.75" />
+      </svg>
+    </div>
+  )
+}
+
+function StarsBackdrop() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-40 transition-opacity">
+      <svg className="w-full h-full" viewBox="0 0 100 80">
+        {[
+          { x: 20, y: 20 },
+          { x: 80, y: 25 },
+          { x: 30, y: 65 },
+          { x: 70, y: 60 }
+        ].map((coords, i) => (
+          <g key={i}>
+            <motion.circle
+              cx={coords.x}
+              cy={coords.y}
+              r="3.5"
+              fill="none"
+              stroke="#f59e0b"
+              strokeWidth="0.5"
+              animate={{ scale: [1, 1.6, 1], opacity: [0.1, 0.5, 0.1] }}
+              transition={{ repeat: Infinity, duration: 3, delay: i * 0.7 }}
+            />
+            <circle cx={coords.x} cy={coords.y} r="0.75" fill="#f59e0b" />
+          </g>
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+function BlueprintBackdrop() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-40 transition-opacity font-mono text-[5px]">
+      <svg className="w-full h-full" viewBox="0 0 100 80">
+        <line x1="0" y1="20" x2="100" y2="20" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        <line x1="0" y1="40" x2="100" y2="40" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        <line x1="0" y1="60" x2="100" y2="60" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        <line x1="25" y1="0" x2="25" y2="80" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        <line x1="50" y1="0" x2="50" y2="80" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        <line x1="75" y1="0" x2="75" y2="80" stroke="rgba(56,189,248,0.06)" strokeWidth="0.5" />
+        
+        <motion.rect
+          x="35"
+          y="25"
+          width="30"
+          height="25"
+          rx="1.5"
+          fill="none"
+          stroke="rgba(56,189,248,0.12)"
+          strokeWidth="0.5"
+          strokeDasharray="3 2"
+          animate={{ strokeDashoffset: [0, 8] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+        />
+        <text x="38" y="40" fill="rgba(56,189,248,0.3)" style={{ fontSize: '4px' }}>SCHEMATIC</text>
+      </svg>
+    </div>
+  )
+}
+
+function DeployedNodesBackdrop() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-45 transition-opacity">
+      <svg className="w-full h-full" viewBox="0 0 100 80">
+        <circle cx="50" cy="40" r="3" fill="none" stroke="#86efac" strokeWidth="0.5" />
+        <circle cx="50" cy="40" r="1" fill="#86efac" />
+        
+        {[
+          { x: 20, y: 25 },
+          { x: 80, y: 25 },
+          { x: 30, y: 60 },
+          { x: 70, y: 60 }
+        ].map((node, i) => (
+          <g key={i}>
+            <line x1="50" y1="40" x2={node.x} y2={node.y} stroke="rgba(134,239,172,0.08)" strokeWidth="0.5" />
+            <circle cx={node.x} cy={node.y} r="1.5" fill="none" stroke="#86efac" strokeWidth="0.5" />
+            <motion.circle
+              r="1.5"
+              fill="#86efac"
+              animate={{
+                cx: [50, node.x],
+                cy: [40, node.y],
+                scale: [0.5, 1],
+                opacity: [0.8, 0]
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.5,
+                delay: i * 0.6,
+                ease: "easeOut"
+              }}
+            />
+          </g>
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+function CGPAGaugeBackdrop() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15 group-hover:opacity-40 transition-opacity">
+      <svg className="w-full h-full" viewBox="0 0 100 80">
+        <circle cx="50" cy="40" r="24" fill="none" stroke="rgba(74,222,128,0.04)" strokeWidth="1" />
+        <circle cx="50" cy="40" r="18" fill="none" stroke="rgba(74,222,128,0.04)" strokeWidth="1" />
+        
+        <motion.circle
+          cx="50"
+          cy="40"
+          r="24"
+          fill="none"
+          stroke="#4ade80"
+          strokeWidth="0.75"
+          strokeDasharray="150.8"
+          initial={{ strokeDashoffset: 150.8 }}
+          animate={{ strokeDashoffset: 150.8 * (1 - 0.932) }}
+          transition={{ duration: 2.5, ease: "easeOut" }}
+          transform="rotate(-90 50 40)"
+        />
+      </svg>
+    </div>
+  )
+}
+
 function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
   const motionValue = useMotionValue(0)
   const rounded = useTransform(motionValue, (v) => Math.round(v))
@@ -104,11 +257,145 @@ function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: strin
   )
 }
 
+function AchievementCard({ achievement, idx, isInView }: { achievement: typeof ACHIEVEMENTS[0]; idx: number; isInView: boolean }) {
+  const [coords, setCoords] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    })
+  }
+
+  const Icon = achievement.icon
+  const numericValue = parseFloat(achievement.value.replace(/[^0-9.]/g, ''))
+  const suffix = achievement.value.replace(/[0-9.]/g, '')
+
+  const renderBackdrop = () => {
+    switch (idx) {
+      case 0: return <DSATreeBackdrop />
+      case 1: return <StarsBackdrop />
+      case 2: return <BlueprintBackdrop />
+      case 3: return <DeployedNodesBackdrop />
+      case 4: return <CGPAGaugeBackdrop />
+      default: return null
+    }
+  }
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial="hidden" animate={isInView ? 'visible' : 'hidden'}
+      variants={revealVariants.fadeUp}
+      transition={{ ...defaultTransition, delay: 0.2 + idx * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ y: -8, scale: 1.03 }}
+      className="glass-card rounded-2xl p-6 text-center group transition-all duration-300 border border-white/5 relative overflow-hidden cursor-pointer"
+      style={{
+        borderColor: isHovered ? achievement.color : 'rgba(255,255,255,0.06)',
+        boxShadow: isHovered ? `0 15px 35px -10px ${achievement.color}40` : 'none',
+        background: isHovered
+          ? `radial-gradient(120px circle at ${coords.x}px ${coords.y}px, rgba(255,255,255,0.04), transparent 80%), rgba(15, 15, 15, 0.6)`
+          : 'rgba(15, 15, 15, 0.6)'
+      }}
+    >
+      {renderBackdrop()}
+
+      <motion.div
+        className="relative z-10 w-10 h-10 rounded-xl mx-auto mb-4 flex items-center justify-center"
+        style={{ background: `${achievement.color}12` }}
+        animate={isHovered ? { rotate: [0, -10, 10, 0], scale: 1.12 } : {}}
+        transition={{ duration: 0.4 }}
+      >
+        <Icon className="w-5 h-5" style={{ color: achievement.color }} />
+      </motion.div>
+
+      <div style={{ color: achievement.color }} className="relative z-10">
+        <AnimatedCounter value={numericValue} suffix={suffix} />
+      </div>
+
+      <div
+        className="relative z-10 text-xs font-mono font-medium tracking-[0.15em] uppercase mt-1 mb-3"
+        style={{ color: achievement.color, opacity: 0.8 }}
+      >
+        {achievement.label}
+      </div>
+
+      <p className="relative z-10 text-xs text-[var(--text-muted)] leading-relaxed">
+        {achievement.description}
+      </p>
+    </motion.div>
+  )
+}
+
+function CertificationCard({ cert, idx, isInView, onClick }: { cert: typeof CERTIFICATIONS[0]; idx: number; isInView: boolean; onClick: () => void }) {
+  const [coords, setCoords] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    })
+  }
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial="hidden" animate={isInView ? 'visible' : 'hidden'}
+      variants={revealVariants.fadeUp}
+      transition={{ ...defaultTransition, delay: 0.7 + idx * 0.1 }}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ y: -6, scale: 1.02 }}
+      className="glass-card rounded-xl p-5 group cursor-pointer transition-all duration-300 relative overflow-hidden border border-white/5"
+      style={{
+        borderColor: isHovered ? cert.color : 'rgba(255,255,255,0.06)',
+        boxShadow: isHovered ? `0 15px 35px -10px ${cert.color}40` : 'none',
+        background: isHovered
+          ? `radial-gradient(120px circle at ${coords.x}px ${coords.y}px, rgba(255,255,255,0.04), transparent 80%), rgba(15, 15, 15, 0.6)`
+          : 'rgba(15, 15, 15, 0.6)'
+      }}
+    >
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <ExternalLink className="w-4 h-4 text-white/50" />
+      </div>
+      
+      <div className="h-10 mb-6 flex items-center justify-start">
+          <motion.img 
+              src={cert.logo} 
+              alt={`${cert.org} logo`} 
+              className="max-h-full max-w-[100px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+              animate={isHovered ? { scale: 1.06 } : { scale: 1 }}
+          />
+      </div>
+
+      <p className="text-sm font-medium text-[var(--text-primary)] mb-1 group-hover:text-white transition-colors">
+        {cert.name}
+      </p>
+      <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)]">
+        <span>{cert.org}</span>
+        <span>·</span>
+        <span>{cert.year}</span>
+      </div>
+    </motion.div>
+  )
+}
+
 export function AchievementsSection() {
   const { ref, isInView } = useScrollReveal()
   const [selectedCert, setSelectedCert] = useState<string | null>(null)
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
-  const [hoveredCertIdx, setHoveredCertIdx] = useState<number | null>(null)
 
   return (
     <section id="achievements" className="relative w-full py-28 md:py-36 px-6 md:px-12" style={{ background: 'var(--bg-primary)' }}>
@@ -138,53 +425,14 @@ export function AchievementsSection() {
 
         {/* Achievement cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-20">
-          {ACHIEVEMENTS.map((achievement, i) => {
-            const Icon = achievement.icon
-            const numericValue = parseFloat(achievement.value.replace(/[^0-9.]/g, ''))
-            const suffix = achievement.value.replace(/[0-9.]/g, '')
-            const isHovered = hoveredIdx === i
-
-            return (
-              <motion.div
-                key={achievement.title}
-                initial="hidden" animate={isInView ? 'visible' : 'hidden'}
-                variants={revealVariants.fadeUp}
-                transition={{ ...defaultTransition, delay: 0.2 + i * 0.1 }}
-                onMouseEnter={() => setHoveredIdx(i)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="glass-card rounded-2xl p-6 text-center group transition-all duration-300 border border-white/5"
-                style={{
-                  borderColor: isHovered ? achievement.color : 'rgba(255,255,255,0.06)',
-                  boxShadow: isHovered ? `0 15px 35px -10px ${achievement.color}40` : 'none',
-                }}
-              >
-                <motion.div
-                  className="w-10 h-10 rounded-xl mx-auto mb-4 flex items-center justify-center"
-                  style={{ background: `${achievement.color}12` }}
-                  animate={isHovered ? { rotate: [0, -10, 10, 0], scale: 1.1 } : {}}
-                  transition={{ duration: 0.4 }}
-                >
-                  <Icon className="w-5 h-5" style={{ color: achievement.color }} />
-                </motion.div>
-
-                <div style={{ color: achievement.color }}>
-                  <AnimatedCounter value={numericValue} suffix={suffix} />
-                </div>
-
-                <div
-                  className="text-xs font-mono font-medium tracking-[0.15em] uppercase mt-1 mb-3"
-                  style={{ color: achievement.color, opacity: 0.8 }}
-                >
-                  {achievement.label}
-                </div>
-
-                <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-                  {achievement.description}
-                </p>
-              </motion.div>
-            )
-          })}
+          {ACHIEVEMENTS.map((achievement, i) => (
+            <AchievementCard 
+              key={achievement.title} 
+              achievement={achievement} 
+              idx={i} 
+              isInView={isInView} 
+            />
+          ))}
         </div>
 
         {/* Certifications */}
@@ -199,48 +447,15 @@ export function AchievementsSection() {
             Certifications
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {CERTIFICATIONS.map((cert, i) => {
-              const isHovered = hoveredCertIdx === i
-              return (
-                <motion.div
-                  key={cert.name}
-                  initial="hidden" animate={isInView ? 'visible' : 'hidden'}
-                  variants={revealVariants.fadeUp}
-                  transition={{ ...defaultTransition, delay: 0.7 + i * 0.1 }}
-                  onClick={() => setSelectedCert(cert.name)}
-                  onMouseEnter={() => setHoveredCertIdx(i)}
-                  onMouseLeave={() => setHoveredCertIdx(null)}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  className="glass-card rounded-xl p-5 group cursor-pointer transition-all duration-300 relative overflow-hidden border border-white/5"
-                  style={{
-                    borderColor: isHovered ? cert.color : 'rgba(255,255,255,0.06)',
-                    boxShadow: isHovered ? `0 15px 35px -10px ${cert.color}40` : 'none',
-                  }}
-                >
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ExternalLink className="w-4 h-4 text-white/50" />
-                  </div>
-                  
-                  <div className="h-10 mb-6 flex items-center justify-start">
-                      <motion.img 
-                          src={cert.logo} 
-                          alt={`${cert.org} logo`} 
-                          className="max-h-full max-w-[100px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-                          animate={isHovered ? { scale: 1.06 } : { scale: 1 }}
-                      />
-                  </div>
-
-                  <p className="text-sm font-medium text-[var(--text-primary)] mb-1 group-hover:text-white transition-colors">
-                    {cert.name}
-                  </p>
-                  <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)]">
-                    <span>{cert.org}</span>
-                    <span>·</span>
-                    <span>{cert.year}</span>
-                  </div>
-                </motion.div>
-              )
-            })}
+            {CERTIFICATIONS.map((cert, i) => (
+              <CertificationCard 
+                key={cert.name} 
+                cert={cert} 
+                idx={i} 
+                isInView={isInView} 
+                onClick={() => setSelectedCert(cert.name)}
+              />
+            ))}
           </div>
         </motion.div>
       </div>
