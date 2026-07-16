@@ -41,7 +41,7 @@ const ACHIEVEMENTS = [
   {
     icon: GraduationCap,
     title: 'Academic Performance',
-    value: '9.32',
+    value: '9.4',
     label: 'Cumulative CGPA',
     description: 'Undergraduate study in Software Engineering with consistent top-tier results.',
     color: '#4ade80',

@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════
-   APPLE-STYLE ULTRA-MINIMALISM Design System
-   Pristine Monochromatic / High Contrast Aesthetic
+   ORYZO AI — Darkroom Product Editorial Design System
+   A lone object floating in warm darkness, cream typography
+   the only decoration.
    ═══════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
@@ -12,37 +13,49 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ═══════════════════════════════════════
-   COLOR PALETTE — Pure Monochromatic
+   ORYZO COLOR PALETTE — Warm-Dark Editorial
    ═══════════════════════════════════════ */
 
 :root {
-  /* Backgrounds — pristine black */
-  --bg-primary: #000000;
-  --bg-secondary: #050505; 
-  --bg-elevated: #0f0f0f; 
-  --bg-surface: #141414;  
+  /* ORYZO Tokens — Colors */
+  --color-warm-cream: #ffedd7;
+  --color-walnut-shadow: #100904;
+  --color-bark-brown: #382416;
+  --color-cork-border: #40372e;
+  --color-driftwood: #6c5f51;
+  --color-ember-accent: #dc5000;
+  --color-pure-black: #000000;
 
-  /* Text — sharp high contrast */
-  --text-primary: #ffffff;  
-  --text-secondary: #a1a1aa; 
-  --text-muted: #71717a;    
-  --text-accent: #ffffff;   
+  /* Backgrounds — warm near-black, never pure */
+  --bg-primary: #100904;        /* Walnut Shadow — page canvas */
+  --bg-secondary: #150d05;      /* one step above canvas */
+  --bg-elevated: #1b1108;       /* card surface, still warm */
+  --bg-surface: #221609;        /* hover surfaces */
 
-  /* Accents */
-  --accent-primary: #ffffff;
-  --accent-secondary: #e4e4e7;
-  --accent-muted: #3f3f46;
+  /* Text — Warm Cream is the system, never pure white */
+  --text-primary: #ffedd7;      /* Warm Cream */
+  --text-secondary: #d4c4a6;    /* dimmed cream */
+  --text-muted: #8a7a64;        /* muted warm gray */
+  --text-accent: #ffedd7;
 
-  /* Glass — apple frosted */
-  --glass-bg: rgba(20, 20, 20, 0.4);
-  --glass-bg-hover: rgba(30, 30, 30, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
+  /* Accents — Ember is editorial credit only, never a CTA */
+  --accent-primary: #ffedd7;
+  --accent-secondary: #d4c4a6;
+  --accent-muted: #6c5f51;
+  --accent-gold: #dc5000;       /* Ember — replaces old gold accent */
+  --accent-ember: #dc5000;
 
-  /* Shadows — elegant subtle */
-  --shadow-sm: 0 4px 24px rgba(0,0,0,0.5), 0 1px 2px rgba(255,255,255,0.05);
-  --shadow-md: 0 12px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(255,255,255,0.03);
-  --shadow-lg: 0 24px 48px rgba(0,0,0,0.8), 0 4px 16px rgba(255,255,255,0.02);
+  /* Glass — warm-tinted frosted surfaces */
+  --glass-bg: rgba(28, 17, 8, 0.55);
+  --glass-bg-hover: rgba(40, 25, 12, 0.7);
+  --glass-border: rgba(255, 237, 215, 0.10);
+  --glass-border-hover: rgba(255, 237, 215, 0.20);
+
+  /* ORYZO rejects shadow-based elevation — two-step surface stack only.
+     These are kept minimal and used only where structurally necessary. */
+  --shadow-sm: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-md: 0 12px 32px rgba(0,0,0,0.6);
+  --shadow-lg: 0 24px 48px rgba(0,0,0,0.8);
 
   /* Tailwind Semantic Tokens */
   --background: var(--bg-primary);
@@ -51,20 +64,76 @@
   --card-foreground: var(--text-primary);
   --popover: var(--bg-elevated);
   --popover-foreground: var(--text-primary);
-  --primary: #ffffff;
-  --primary-foreground: #000000;
+  --primary: #ffedd7;
+  --primary-foreground: #100904;
   --secondary: var(--bg-surface);
   --secondary-foreground: var(--text-secondary);
   --muted: var(--bg-surface);
   --muted-foreground: var(--text-muted);
   --accent: var(--accent-secondary);
   --accent-foreground: var(--bg-primary);
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive: #dc5000;
+  --destructive-foreground: #ffedd7;
   --border: var(--glass-border);
   --input: var(--glass-border);
-  --ring: rgba(255,255,255,0.5);
-  --radius: 1.25rem;
+  --ring: rgba(255, 237, 215, 0.5);
+  --radius: 0.75rem;
+
+  /* ORYZO Typography — Font Families (Halyard substitute: Inter) */
+  --font-halyard-display-variable: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-arial: 'Arial', ui-sans-serif, system-ui, sans-serif;
+
+  /* ORYZO Typography — Scale */
+  --text-subheading: 18px;
+  --leading-subheading: 1;
+  --text-heading-sm: 24px;
+  --leading-heading-sm: 1.09;
+  --text-body: 29px;
+  --leading-body: 1.26;
+  --text-heading: 41px;
+  --leading-heading: 0.9;
+  --text-display: 51px;
+  --leading-display: 0.9;
+
+  /* ORYZO Typography — Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  /* ORYZO Spacing */
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-9: 9px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-14: 14px;
+  --spacing-18: 18px;
+  --spacing-24: 24px;
+  --spacing-31: 31px;
+  --spacing-41: 41px;
+  --spacing-45: 45px;
+  --spacing-68: 68px;
+  --spacing-204: 204px;
+
+  /* ORYZO Layout */
+  --card-padding: 24px;
+  --element-gap: 18px;
+
+  /* ORYZO Border Radius — the entire radius vocabulary */
+  --radius-xl: 12px;
+  --radius-2xl: 22.5px;
+  --radius-3xl: 36px;
+  --radius-full: 9999px;
+  --radius-cards: 12px;
+  --radius-inputs: 0px;
+  --radius-full-round: 9999px;
+  --radius-buttons-pill: 36px;
+  --radius-buttons-outlined: 22.5px;
+
+  /* ORYZO Surfaces — two-step surface stack */
+  --surface-walnut-shadow: #100904;
+  --surface-bark-brown: #382416;
+  --surface-cork-border: #40372e;
+  --surface-warm-cream: #ffedd7;
 }
 
 /* ═══════════════════════════════════════
@@ -74,7 +143,7 @@
 @theme inline {
   --font-heading: "Inter", -apple-system, sans-serif;
   --font-sans: "Inter", -apple-system, sans-serif;
-  
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -92,10 +161,17 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  --color-warm-cream: #ffedd7;
+  --color-walnut-shadow: #100904;
+  --color-bark-brown: #382416;
+  --color-cork-border: #40372e;
+  --color-driftwood: #6c5f51;
+  --color-ember-accent: #dc5000;
 }
 
 /* ═══════════════════════════════════════
-   BASE STYLES
+   BASE STYLES — ORYZO editorial voice
    ═══════════════════════════════════════ */
 
 @layer base {
@@ -109,176 +185,280 @@
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: "Inter", -apple-system, sans-serif;
+    background-color: var(--color-walnut-shadow);
+    color: var(--color-warm-cream);
+    font-family: var(--font-halyard-display-variable);
+    font-weight: 500;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01" on;
   }
 
+  /* ORYZO default: UPPERCASE weight 500 across the interface.
+     Only the 29px body copy uses mixed-case weight 400. */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: -0.04em;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-transform: uppercase;
+    line-height: 0.9;
+    color: var(--color-warm-cream);
+  }
+
+  /* The conversational body voice — 29px / 400 / mixed case */
+  p {
+    font-weight: 400;
   }
 
   ::selection {
-    background: rgba(255, 255, 255, 0.99);
-    color: #000000;
+    background: rgba(255, 237, 215, 0.95);
+    color: #100904;
   }
 }
 
 /* ═══════════════════════════════════════
-   SCROLLBAR
+   SCROLLBAR — warm-toned
    ═══════════════════════════════════════ */
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--color-walnut-shadow);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 237, 215, 0.12);
   border-radius: 12px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 237, 215, 0.22);
 }
 
 /* ═══════════════════════════════════════
-   APPLE-STYLE GLASSMORPHISM
+   ORYZO GLASS — warm frosted surfaces
    ═══════════════════════════════════════ */
 
 .glass, .apple-glass {
-  background: rgba(20, 20, 20, 0.4);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-top: 1px solid rgba(255, 237, 215, 0.14);
 }
 
 .glass-hover:hover {
-  background: rgba(30, 30, 30, 0.6);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
 }
 
 .glass-card {
-  background: rgba(15, 15, 15, 0.6);
+  background: rgba(27, 17, 8, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-cards);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  background: rgba(25, 25, 25, 0.8);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: var(--shadow-sm);
+  background: rgba(34, 22, 9, 0.7);
+  border-color: var(--glass-border-hover);
   transform: translateY(-2px);
 }
 
 /* ═══════════════════════════════════════
-   BUTTON STYLES
+   ORYZO BUTTONS — the entire radius vocabulary
    ═══════════════════════════════════════ */
 
+/* Pill Button (Filled) — the one solid CTA, Bark Brown surface */
 .btn-primary {
-  background: #ffffff;
-  color: #000000;
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
+  background: var(--color-bark-brown);
+  color: var(--color-warm-cream);
+  font-family: var(--font-halyard-display-variable);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: var(--radius-buttons-pill);
   border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px 0 rgba(255,255,255,0.15);
 }
 
 .btn-primary:hover {
-  background: #f4f4f5;
+  background: #4a2f1d;
   transform: scale(1.02);
-  box-shadow: 0 6px 20px 0 rgba(255,255,255,0.2);
 }
 
 .btn-primary:active {
   transform: scale(0.98);
 }
 
+/* Outlined Ghost Button — cream border, transparent fill */
 .btn-outline {
-  background: rgba(255, 255, 255, 0.03);
-  color: #ffffff;
-  font-family: "Inter", sans-serif;
+  background: transparent;
+  color: var(--color-warm-cream);
+  font-family: var(--font-halyard-display-variable);
   font-weight: 500;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 7.5px 18px;
+  border-radius: var(--radius-buttons-outlined);
+  border: 1px solid var(--color-warm-cream);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 237, 215, 0.06);
+  border-color: var(--color-warm-cream);
+}
+
+/* Underline Text Link — the default interaction, no container */
+.btn-ghost, .btn-link {
+  background: transparent;
+  color: var(--color-warm-cream);
+  font-family: var(--font-halyard-display-variable);
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  padding: 4px 0;
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.25s;
+  text-decoration: underline;
+  text-decoration-color: var(--color-cork-border);
+  text-underline-offset: 4px;
+}
+
+.btn-ghost:hover, .btn-link:hover {
+  opacity: 0.7;
 }
 
 /* ═══════════════════════════════════════
-   SECTION STYLES
+   ORYZO SECTION STYLES — museum labels
    ═══════════════════════════════════════ */
 
+/* Section label — uppercase weight 500, the declarative voice */
 .section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
+  font-family: var(--font-halyard-display-variable);
 }
 
 .section-label::before {
   content: '';
-  width: 1.5rem;
+  width: 24px;
   height: 1px;
-  background: var(--text-secondary);
-  opacity: 0.5;
+  background: var(--color-driftwood);
+  opacity: 0.8;
 }
 
+/* Display heading — 51px / 0.9 line-height, sculptural stack */
 .section-title {
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  color: var(--text-primary);
+  letter-spacing: normal;
+  line-height: 0.9;
+  color: var(--color-warm-cream);
+  text-transform: uppercase;
 }
 
+/* Dashed hairline divider — the only structural break */
 .section-divider {
   width: 100%;
+  height: 0;
+  border-top: 1px dashed var(--color-cork-border);
+}
+
+/* Solid divider — used sparingly, never decorative */
+.section-divider-solid {
+  width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  background: var(--color-cork-border);
 }
 
 /* ═══════════════════════════════════════
-   UTILITY CLASSES
+   ORYZO UTILITY CLASSES
    ═══════════════════════════════════════ */
 
+/* Warm cream gradient for emphasis text */
 .text-gradient-bio {
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(180deg, #ffedd7 0%, #d4c4a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.animate-glow-pulse {
-  animation: none; /* Disabled for minimal theme */
+/* Ember accent — editorial credit only */
+.text-ember {
+  color: var(--color-ember-accent);
 }
 
-/* Hide scrollbar utility */
+/* ORYZO body voice — the only mixed-case text, 29px weight 400 */
+.oryzo-body {
+  font-family: var(--font-halyard-display-variable);
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1.26;
+  text-transform: none;
+  color: var(--color-warm-cream);
+  letter-spacing: normal;
+}
+
+/* Legal micro-copy — Arial 8px, system disclaimer voice */
+.oryzo-legal {
+  font-family: var(--font-arial);
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: normal;
+}
+
+/* ORYZO wordmark — pure typographic identity, no icon */
+.oryzo-wordmark {
+  font-family: var(--font-halyard-display-variable);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  line-height: 0.9;
+  color: var(--color-warm-cream);
+}
+
+/* Vertical sidebar label — rotated 90°, edge branding */
+.oryzo-sidebar-label {
+  font-family: var(--font-halyard-display-variable);
+  font-weight: 500;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: var(--color-warm-cream);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* Hairline dashed underline indicator — active nav, labels */
+.oryzo-dashed-underline {
+  border-bottom: 1px dashed var(--color-cork-border);
+  padding-bottom: 4px;
+}
+
+.animate-glow-pulse {
+  animation: none;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -317,4 +497,28 @@
 
 .scroll-reel-exit {
   animation: scroll-reel-exit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Cursor blink — kept for typewriter */
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-cursor-blink {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+
+/* Noise overlay — warm grain for the darkroom canvas */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }

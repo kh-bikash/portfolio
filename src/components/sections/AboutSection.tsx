@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useScrollReveal, revealVariants, defaultTransition, staggerContainer } from '@/hooks/useScrollReveal'
 
 const STATS = [
-  { value: '9.32', label: 'CGPA', sub: 'KL University' },
+  { value: '9.4', label: 'CGPA', sub: 'KL University' },
   { value: '700+', label: 'Problems', sub: 'DSA Solved' },
   { value: '4★', label: 'Rating', sub: 'CodeChef' },
 ]
@@ -61,7 +61,7 @@ export function AboutSection() {
               className="flex flex-col justify-center"
             >
               <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-6 font-light tracking-tight">
-                AI Engineer and Software Engineering undergraduate (CGPA: 9.32) specializing in{' '}
+                AI Engineer and Software Engineering undergraduate (CGPA: 9.4) specializing in{' '}
                 <span className="text-white font-medium">Generative AI</span>,{' '}
                 <span className="text-white font-medium">Agentic AI</span>,{' '}
                 Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Semantic Search, NLP, and Intelligent Automation Systems.

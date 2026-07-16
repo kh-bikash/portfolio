@@ -1,20 +1,20 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { useMagneticButton } from '@/hooks/useMagneticButton'
-import { ArrowDown, Github, Linkedin, FileDown, Eye, Mail } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, FileDown, Eye, Mail, Play } from 'lucide-react'
 import { SplineScene } from '@/components/ui/splite'
 import { Spotlight } from '@/components/ui/spotlight'
 
 const ROLES = [
-  'AI Engineer',
-  'Generative AI',
-  'Agentic AI',
-  'Machine Learning',
+  'AI ENGINEER',
+  'GENERATIVE AI',
+  'AGENTIC AI',
+  'MACHINE LEARNING',
 ]
 
-// ── Starfield Canvas ──────────────────────────────────────────
+// ── Starfield Canvas — warm embers floating in walnut darkness ──
 function StarfieldCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -31,67 +31,70 @@ function StarfieldCanvas() {
     resize()
     window.addEventListener('resize', resize)
 
-    const stars = Array.from({ length: 200 }, () => ({
+    const stars = Array.from({ length: 160 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.3 + 0.2,
-      alpha: Math.random() * 0.6 + 0.1,
+      r: Math.random() * 1.2 + 0.2,
+      alpha: Math.random() * 0.5 + 0.1,
       twinkleSpeed: Math.random() * 0.006 + 0.002,
       twinkleOffset: Math.random() * Math.PI * 2,
     }))
 
-    const embers = Array.from({ length: 28 }, () => ({
+    const embers = Array.from({ length: 22 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight + window.innerHeight,
-      r: Math.random() * 1.8 + 0.4,
+      r: Math.random() * 1.6 + 0.4,
       alpha: 0,
-      speed: Math.random() * 0.5 + 0.2,
-      drift: (Math.random() - 0.5) * 0.35,
-      isGreen: Math.random() > 0.35,
+      speed: Math.random() * 0.45 + 0.2,
+      drift: (Math.random() - 0.5) * 0.3,
+      isEmber: Math.random() > 0.7,
     }))
 
     let t = 0
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Atmospheric radial glow
+      // Warm atmospheric radial glow — the darkroom light
       const grad = ctx.createRadialGradient(
-        canvas.width * 0.55, canvas.height * 0.38, 0,
-        canvas.width * 0.55, canvas.height * 0.38, canvas.width * 0.55
+        canvas.width * 0.55, canvas.height * 0.42, 0,
+        canvas.width * 0.55, canvas.height * 0.42, canvas.width * 0.55
       )
-      grad.addColorStop(0, 'rgba(10, 30, 15, 0.35)')
-      grad.addColorStop(0.6, 'rgba(6, 13, 6, 0.12)')
-      grad.addColorStop(1, 'rgba(3, 6, 9, 0)')
+      grad.addColorStop(0, 'rgba(56, 36, 22, 0.35)')
+      grad.addColorStop(0.6, 'rgba(16, 9, 4, 0.15)')
+      grad.addColorStop(1, 'rgba(16, 9, 4, 0)')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Stars with twinkle
+      // Stars — warm cream twinkle
       stars.forEach(s => {
         const tw = Math.sin(t * s.twinkleSpeed + s.twinkleOffset) * 0.35 + 0.65
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(220, 240, 220, ${s.alpha * tw})`
+        ctx.fillStyle = `rgba(255, 237, 215, ${s.alpha * tw})`
         ctx.fill()
       })
 
-        // Floating embers (now pure white/silver particles)
+      // Floating embers — warm cream + rare ember-orange motes
       embers.forEach(e => {
         e.y -= e.speed
         e.x += e.drift
-        e.alpha = Math.min(0.5, e.alpha + 0.004)
+        e.alpha = Math.min(0.45, e.alpha + 0.0035)
         if (e.y < -15) {
           e.y = canvas.height + 20
           e.x = Math.random() * canvas.width
           e.alpha = 0
         }
-        const color = `rgba(255, 255, 255, ${e.alpha})`
+        const color = e.isEmber
+          ? `rgba(220, 80, 0, ${e.alpha})`
+          : `rgba(255, 237, 215, ${e.alpha})`
         ctx.beginPath()
         ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2)
         ctx.fillStyle = color
         ctx.fill()
-        // Soft halo
         const halo = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, e.r * 5)
-        halo.addColorStop(0, `rgba(255, 255, 255, ${e.alpha * 0.2})`)
+        halo.addColorStop(0, e.isEmber
+          ? `rgba(220, 80, 0, ${e.alpha * 0.2})`
+          : `rgba(255, 237, 215, ${e.alpha * 0.2})`)
         halo.addColorStop(1, 'transparent')
         ctx.beginPath()
         ctx.arc(e.x, e.y, e.r * 5, 0, Math.PI * 2)
@@ -119,7 +122,7 @@ function StarfieldCanvas() {
   )
 }
 
-// ── Typewriter Role ──────────────────────────────────────────
+// ── Typewriter Role — uppercase ORYZO voice ──────────────────
 function TypewriterRole() {
   const [displayed, setDisplayed] = useState('')
   const [roleIdx, setRoleIdx] = useState(0)
@@ -149,9 +152,12 @@ function TypewriterRole() {
   }, [displayed, phase, roleIdx])
 
   return (
-    <span className="font-mono text-sm sm:text-base tracking-widest text-white min-w-[240px] text-left opacity-90">
+    <span
+      className="font-medium text-[12px] uppercase tracking-normal text-[var(--color-warm-cream)] min-w-[240px] text-left opacity-80"
+      style={{ fontFamily: 'var(--font-halyard-display-variable)' }}
+    >
       {displayed}
-      <span className="animate-cursor-blink ml-px inline-block w-[2px] h-[1em] bg-white align-middle" />
+      <span className="animate-cursor-blink ml-px inline-block w-[2px] h-[1em] bg-[var(--color-warm-cream)] align-middle" />
     </span>
   )
 }
@@ -199,9 +205,20 @@ const HERO_VARIANTS = {
 }
 
 export function HeroSection() {
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  // Robot parallax + fade out as you scroll past hero
+  const robotY = useTransform(scrollYProgress, [0, 1], [0, -120])
+  const robotScale = useTransform(scrollYProgress, [0, 1], [1, 0.85])
+  const robotOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  // Content parallax
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   const scrollToProjects = () => {
-    // Handle hash-based routing: if on sub-page, navigate back to home then scroll
     if (window.location.hash && window.location.hash.startsWith('#/') && !window.location.hash.startsWith('#/#')) {
       window.location.hash = '#/'
       setTimeout(() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }), 400)
@@ -225,31 +242,35 @@ export function HeroSection() {
   return (
     <section
       id="hero"
+      ref={heroRef}
       className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: 'var(--bg-primary)' }}
+      style={{ background: 'var(--color-walnut-shadow)' }}
     >
-      {/* Animated Spotlight Effect */}
+      {/* Warm spotlight — the darkroom key light */}
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="rgba(255, 255, 255, 0.15)"
+        fill="rgba(255, 237, 215, 0.10)"
       />
 
-      {/* Interactive 3D Spline Scene */}
-      <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1, pointerEvents: 'auto' }}>
-        <SplineScene 
+      {/* Interactive 3D Spline Scene — THE ROBOT, parallax on scroll */}
+      <motion.div
+        className="absolute inset-0 w-full h-full"
+        style={{ zIndex: 1, pointerEvents: 'auto', y: robotY, scale: robotScale, opacity: robotOpacity }}
+      >
+        <SplineScene
           scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full opacity-80 mix-blend-screen"
+          className="w-full h-full opacity-85 mix-blend-screen"
         />
-      </div>
+      </motion.div>
 
-      {/* Canvas starfield (2D embers on top of WebGL) */}
+      {/* Canvas starfield (warm embers on top of WebGL robot) */}
       <StarfieldCanvas />
 
       {/* Atmospheric glow layer */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 55% 40%, rgba(255,255,255,0.03) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse 80% 60% at 55% 40%, rgba(255,237,215,0.04) 0%, transparent 65%)',
           zIndex: 2,
         }}
       />
@@ -257,13 +278,48 @@ export function HeroSection() {
       {/* Bottom fade to next section */}
       <div
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)', zIndex: 2 }}
+        style={{ background: 'linear-gradient(to top, var(--color-walnut-shadow) 0%, transparent 100%)', zIndex: 2 }}
       />
 
+      {/* ORYZO Hero Overlay — Upper-left wordmark lockup */}
+      <motion.div
+        custom={0.15}
+        initial="hidden"
+        animate="visible"
+        variants={HERO_VARIANTS}
+        className="absolute top-20 left-6 md:left-10 pointer-events-none"
+        style={{ zIndex: 5 }}
+      >
+        <div className="text-[12px] font-medium uppercase text-[var(--color-warm-cream)] opacity-60 mb-2">
+          Made for mugs, built for tables.
+        </div>
+        <div
+          className="oryzo-wordmark"
+          style={{ fontSize: 'clamp(2.2rem, 5vw, 3.4rem)' }}
+        >
+          BIKASH
+          <span className="text-[var(--color-ember-accent)]">.</span>
+        </div>
+      </motion.div>
 
+      {/* ORYZO Vertical Sidebar Label — right edge branding */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 pointer-events-none"
+        style={{ zIndex: 5 }}
+      >
+        <div className="oryzo-sidebar-label opacity-50">
+          BIKASH · 1-MODEL
+        </div>
+      </motion.div>
 
-      {/* Main content */}
-      <div className="relative flex flex-col items-center text-center px-6 max-w-5xl mx-auto" style={{ zIndex: 4 }}>
+      {/* Main content — centered hero lockup, parallax on scroll */}
+      <motion.div
+        style={{ zIndex: 4, y: contentY, opacity: contentOpacity }}
+        className="relative flex flex-col items-center text-center px-6 max-w-5xl mx-auto"
+      >
 
         {/* Label row */}
         <motion.div
@@ -271,46 +327,48 @@ export function HeroSection() {
           initial="hidden"
           animate="visible"
           variants={HERO_VARIANTS}
-          className="section-label mb-8 flex items-center justify-center gap-3 opacity-60"
+          className="section-label mb-8 flex items-center justify-center gap-3 opacity-70"
         >
-          <span className="w-8 h-px bg-white opacity-40" />
-          AI Engineer · Agentic AI · Machine Learning
-          <span className="w-8 h-px bg-white opacity-40" />
+          <span className="w-8 h-px" style={{ background: 'var(--color-driftwood)' }} />
+          AI ENGINEER · AGENTIC AI · MACHINE LEARNING
+          <span className="w-8 h-px" style={{ background: 'var(--color-driftwood)' }} />
         </motion.div>
 
-        {/* Name */}
+        {/* Name — ORYZO display wordmark */}
         <motion.h1
           custom={0.38}
           initial="hidden"
           animate="visible"
           variants={HERO_VARIANTS}
-          className="font-heading font-semibold text-white leading-none mb-3 tracking-tighter"
+          className="oryzo-wordmark mb-3"
           style={{
             fontSize: 'clamp(2.8rem, 9vw, 8rem)',
+            lineHeight: 0.9,
           }}
         >
           KHUNDRAKPAM
           <span
-            className="block font-light text-[var(--text-secondary)] tracking-tight"
+            className="block opacity-60"
             style={{
               fontSize: 'clamp(1.4rem, 4.5vw, 4rem)',
-              marginTop: '0.15em',
+              marginTop: '0.1em',
+              fontWeight: 500,
             }}
           >
             BIKASH MEITEI
           </span>
         </motion.h1>
 
-        {/* Tagline */}
+        {/* Tagline — ORYZO body voice (29px / 400 / mixed case) */}
         <motion.p
           custom={0.52}
           initial="hidden"
           animate="visible"
           variants={HERO_VARIANTS}
-          className="text-lg sm:text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl mb-5 leading-relaxed font-light"
+          className="oryzo-body max-w-2xl mb-5"
+          style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.55rem)', lineHeight: 1.26 }}
         >
-          Building AI Systems That Turn{' '}
-          <span className="text-gradient-bio font-semibold">Ideas Into Impact.</span>
+          Building scalable AI systems, distributed backends &amp; LLM-powered platforms.
         </motion.p>
 
         {/* Typewriter role */}
@@ -321,11 +379,11 @@ export function HeroSection() {
           variants={HERO_VARIANTS}
           className="flex items-center gap-3 mb-12"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-white opacity-80" />
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--color-ember-accent)' }} />
           <TypewriterRole />
         </motion.div>
 
-        {/* CTAs */}
+        {/* CTAs — one filled pill + outlined ghosts (ORYZO restraint) */}
         <motion.div
           custom={0.85}
           initial="hidden"
@@ -333,69 +391,129 @@ export function HeroSection() {
           variants={HERO_VARIANTS}
           className="flex flex-wrap justify-center gap-4 mb-8"
         >
-          <MagneticButton onClick={scrollToProjects} className="btn-primary flex items-center gap-2 text-sm">
-            View Projects
+          <MagneticButton onClick={scrollToProjects} className="btn-primary flex items-center gap-2">
+            View Work
             <ArrowDown className="w-4 h-4" />
           </MagneticButton>
 
-          <MagneticButton onClick={() => window.location.hash = '#/resume'} className="btn-outline flex items-center gap-2 text-sm">
+          <MagneticButton onClick={() => (window.location.hash = '#/resume')} className="btn-outline flex items-center gap-2">
             <Eye className="w-4 h-4" />
             Interactive Resume
           </MagneticButton>
 
-          <MagneticButton onClick={openResume} className="btn-outline flex items-center gap-2 text-sm">
+          <MagneticButton onClick={openResume} className="btn-outline flex items-center gap-2">
             <FileDown className="w-4 h-4" />
             Download PDF
           </MagneticButton>
 
-          <MagneticButton onClick={scrollToContact} className="btn-ghost flex items-center gap-2 text-sm">
+          <MagneticButton onClick={scrollToContact} className="btn-ghost flex items-center gap-2">
             <Mail className="w-4 h-4" />
             Contact Me
           </MagneticButton>
         </motion.div>
 
-        {/* Social links */}
+        {/* Social links — underline text links (ORYZO default interaction) */}
         <motion.div
           custom={1.0}
           initial="hidden"
           animate="visible"
           variants={HERO_VARIANTS}
-          className="flex items-center gap-4 mt-4"
+          className="flex items-center gap-6 mt-4"
         >
           <a
             href="https://github.com/kh-bikash"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 rounded-full apple-glass transition-all text-[var(--text-muted)] hover:text-white hover:scale-110"
+            className="flex items-center gap-2 text-[12px] uppercase font-medium text-[var(--color-warm-cream)] transition-opacity hover:opacity-70"
             aria-label="GitHub"
           >
-            <Github className="w-4 h-4" />
+            <Github className="w-3.5 h-3.5" />
+            GitHub
           </a>
+          <span className="opacity-30">·</span>
           <a
             href="https://www.linkedin.com/in/khundrakpam-bikash-meitei-5544ba298/"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-3 rounded-full apple-glass transition-all text-[var(--text-muted)] hover:text-white hover:scale-110"
+            className="flex items-center gap-2 text-[12px] uppercase font-medium text-[var(--color-warm-cream)] transition-opacity hover:opacity-70"
             aria-label="LinkedIn"
           >
-            <Linkedin className="w-4 h-4" />
+            <Linkedin className="w-3.5 h-3.5" />
+            LinkedIn
           </a>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* ORYZO Hero Overlay Info Card — lower-left attribution */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="absolute bottom-8 left-6 md:left-10 max-w-xs p-4 pointer-events-none"
+        style={{
+          zIndex: 5,
+          borderRadius: 'var(--radius-cards)',
+          background: 'rgba(16, 9, 4, 0.55)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid var(--color-cork-border)',
+        }}
+      >
+        <div className="text-[12px] font-medium uppercase text-[var(--color-warm-cream)] mb-2 leading-snug">
+          Designed by <span className="text-[var(--color-ember-accent)]">Bikash</span>, the AI engineer building scalable systems.
+        </div>
+        <div
+          className="my-2"
+          style={{ borderTop: '1px dashed var(--color-cork-border)' }}
+        />
+        <div className="text-[13px] font-normal text-[var(--text-secondary)] leading-snug" style={{ textTransform: 'none' }}>
+          Open to SWE &amp; AI/ML internships. Imphal, India.
+        </div>
+      </motion.div>
+
+      {/* ORYZO Video Thumbnail Card — lower-right secondary entry point */}
+      <motion.button
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.55, duration: 0.8 }}
+        onClick={() => (window.location.hash = '#/projects')}
+        className="absolute bottom-8 right-6 md:right-10 flex items-center gap-3 p-3 pr-4 cursor-pointer transition-all hover:opacity-90"
+        style={{
+          zIndex: 5,
+          borderRadius: 'var(--radius-cards)',
+          background: 'rgba(16, 9, 4, 0.55)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid var(--color-cork-border)',
+        }}
+        aria-label="View work reel"
+      >
+        <div
+          className="w-9 h-9 rounded-full flex items-center justify-center"
+          style={{ background: 'var(--color-bark-brown)' }}
+        >
+          <Play className="w-3.5 h-3.5 text-[var(--color-warm-cream)]" fill="currentColor" />
+        </div>
+        <div className="flex flex-col items-start">
+          <span className="oryzo-wordmark text-[10px] leading-none">BIKASH</span>
+          <span className="text-[8px] uppercase text-[var(--text-muted)] mt-1">Work Reel</span>
+        </div>
+      </motion.button>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.4, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-none"
         style={{ zIndex: 4 }}
       >
-        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">scroll to explore</span>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)]">
+          scroll to explore
+        </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-10 bg-gradient-to-b from-white/50 to-transparent"
+          className="w-px h-10"
+          style={{ background: 'linear-gradient(to bottom, var(--color-warm-cream), transparent)' }}
         />
       </motion.div>
     </section>
