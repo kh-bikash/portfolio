@@ -1,23 +1,13 @@
 {
-  "name": "Bikash Portfolio",
-  "short_name": "BikashAI",
-  "description": "Portfolio of Khundrakpam Bikash Meitei, AI Engineer & Software Architect",
+  "name": "Khundrakpam Bikash Meitei",
+  "short_name": "Bikash",
+  "description": "Portfolio of Khundrakpam Bikash Meitei, AI Engineer",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#fcfcfb",
+  "theme_color": "#fcfcfb",
   "icons": [
-    {
-      "src": "/vite.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/vite.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/apple-icon.png", "sizes": "180x180", "type": "image/png" }
   ]
 }
