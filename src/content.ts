@@ -2,12 +2,12 @@
 
 export const profile = {
   name: 'Khundrakpam Bikash Meitei',
-  role: 'AI Engineer · Forward Deployed Engineer',
+  role: 'AI Engineer',
+  headline: 'I build AI agents that leave the demo and go to work.',
   intro:
-    'I build LLM agents that make it to production — automating real client workflows, evaluating frontier models, and turning messy processes into reliable systems.',
-  location: 'India',
-  education: 'B.Tech CSE, KL University · CGPA 9.32 · 2027',
+    'Forward-deployed AI engineer. I turn messy business processes into LLM agent systems — with tool calling, retrieval and evaluation built in — and ship them to production.',
   status: 'Open to AI engineering roles',
+  location: 'India',
   email: 'khbikash17@gmail.com',
   github: 'https://github.com/kh-bikash',
   githubUser: 'kh-bikash',
@@ -15,107 +15,139 @@ export const profile = {
   resume: '/Khundrakpam_Bikash_Meitei_Resume.pdf',
 }
 
-export const experience = [
-  {
-    company: 'Handshake',
-    role: 'Artificial Intelligence Specialist (Freelance)',
-    period: 'Jul 2026 — Present',
-    points: [
-      'Hardened agentic coding benchmarks — fixed broken terminal tasks, edge-case tests and verification criteria so scores reflect real agent capability.',
-      'Mapped accuracy and context-retention failure modes across ChatGPT, Claude and DeepSeek.',
-    ],
-  },
-  {
-    company: 'Build Fast with AI',
-    role: 'AI Engineer Intern',
-    period: 'Jun — Sep 2026',
-    points: [
-      'Cut manual effort 60–95% per workflow for 3+ client businesses with end-to-end LLM agent pipelines.',
-      'Shipped agents with tool calling, RAG and structured outputs as monitored services, plus full-stack dashboards for clients.',
-    ],
-  },
-  {
-    company: 'Bot Point',
-    role: 'AI/ML Intern',
-    period: 'May — Jun 2026',
-    points: [
-      'Raised response accuracy 30% on 1K+ queries/day with LLM agents on a business automation platform.',
-      'Reduced manual intervention 40% with automated prompt-evaluation pipelines.',
-    ],
-  },
-]
-
 export type Project = {
   name: string
+  kind: string
   summary: string
   stack: string[]
   repo: string
   live?: string
+  image?: string
 }
 
-export const projects: Project[] = [
+export const featured: Project[] = [
   {
     name: 'ReflexCube',
+    kind: 'No-code AI platform',
     summary:
-      'No-code AI platform: prompt → train → version → predict across 15 domain agents. 200 ms inference on 10K+ row datasets with subprocess-isolated workers. Backed by a published paper.',
-    stack: ['Python', 'FastAPI', 'PyTorch', 'LangChain', 'React'],
+      'Prompt → train → version → predict, across 15 domain agents. Subprocess-isolated ML workers keep inference at 200 ms on 10K+ row datasets. Backed by a co-authored paper.',
+    stack: ['FastAPI', 'PyTorch', 'LangChain', 'React'],
     repo: 'https://github.com/kh-bikash/Reflex-Cube',
     live: 'https://reflex-cube.vercel.app',
+    image: '/work/reflexcube.webp',
   },
   {
-    name: 'NextFlow',
+    name: 'Baxel Replay',
+    kind: 'Agent tooling',
     summary:
-      'Visual AI workflow engine. A DAG executor topologically sorts nodes and runs independent branches in parallel as background jobs, with multimodal Gemini nodes.',
-    stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Trigger.dev'],
+      'A flight recorder for coding agents. Captures the whole machine — files, commands, tests — so you can rewind to any checkpoint and fork a new micro-VM from there.',
+    stack: ['TypeScript', 'Blaxel', 'Micro-VMs'],
+    repo: 'https://github.com/kh-bikash/baxeli',
+    image: '/work/baxeli.webp',
+  },
+  {
+    name: 'AgentCart',
+    kind: 'Agentic commerce',
+    summary:
+      'A policy-gated gateway that lets AI agents buy from Razorpay merchants. Every money action is permissioned, policy-checked and logged as evidence.',
+    stack: ['Python', 'FastAPI', 'Razorpay'],
+    repo: 'https://github.com/kh-bikash/agentcart',
+    live: 'https://agentcart-razorpay.vercel.app',
+    image: '/work/agentcart.webp',
+  },
+  {
+    name: 'Beacon',
+    kind: 'Incident workflow',
+    summary:
+      'Routes critical alerts to the right on-call engineer with Novu, captures a human decision, and closes the loop.',
+    stack: ['JavaScript', 'Novu'],
+    repo: 'https://github.com/kh-bikash/novuagent',
+    image: '/work/novuagent.webp',
+  },
+  {
+    name: 'Sitaara Verify',
+    kind: 'Document AI',
+    summary:
+      'Multilingual OCR and verification for Indian land records. Handles printed and handwritten scripts, and holds low-confidence lines for human review.',
+    stack: ['Next.js', 'Gemini', 'OpenStreetMap'],
+    repo: 'https://github.com/kh-bikash/sitaraverify',
+    live: 'https://sitaraverify.vercel.app',
+    image: '/work/sitaraverify.webp',
+  },
+]
+
+export const moreProjects: Project[] = [
+  {
+    name: 'NextFlow',
+    kind: 'Visual AI workflow engine',
+    summary: 'DAG executor that runs independent branches in parallel as background jobs.',
+    stack: ['Next.js', 'Trigger.dev'],
     repo: 'https://github.com/kh-bikash/NextFlow',
     live: 'https://next-flow-sooty.vercel.app',
   },
   {
     name: 'ML Inspector Suite',
-    summary:
-      'QA platform for LLM and RAG systems — 8 tools including a RAG debugger, prompt regression tester and bias auditor, with 100% schema-validated outputs and MLflow tracking.',
-    stack: ['TypeScript', 'React', 'Llama 3.1 70B', 'Zod', 'MLflow'],
+    kind: 'LLM & RAG QA',
+    summary: 'Eight QA tools for LLM systems with schema-validated outputs and MLflow tracking.',
+    stack: ['TypeScript', 'Zod', 'MLflow'],
     repo: 'https://github.com/kh-bikash/MLSuite',
   },
   {
     name: 'pr-review-me',
-    summary:
-      'pip-installable GitHub PR reviewer that runs three parallel LangGraph agents for security, performance and code quality.',
-    stack: ['Python', 'LangGraph', 'FastAPI'],
+    kind: 'Open source',
+    summary: 'pip-installable PR reviewer running three parallel LangGraph agents.',
+    stack: ['Python', 'LangGraph'],
     repo: 'https://github.com/kh-bikash/pr_agent',
     live: 'https://pypi.org/project/pr-review-me/',
   },
   {
     name: 'MonsoonRelief',
-    summary:
-      'OpenEnv-compliant multi-objective RL environment for disaster response with a 3-tier programmatic grader. Zero-shot Llama-3.3-70B scored 2.50 / 3.00.',
-    stack: ['Python', 'Pydantic', 'Docker', 'OpenEnv'],
+    kind: 'RL environment',
+    summary: 'Disaster-response environment for LLM agents with a 3-tier programmatic grader.',
+    stack: ['Python', 'OpenEnv'],
     repo: 'https://github.com/kh-bikash/MonsoonRelief-OpenEnv',
   },
 ]
 
-export const skills = [
-  ['Languages', 'Python, TypeScript, JavaScript, SQL, Java, C++'],
-  ['LLM & Agents', 'LangChain, LangGraph, LlamaIndex, RAG, multi-agent systems, tool calling, structured outputs, evaluation'],
-  ['ML & Data', 'PyTorch, Hugging Face, scikit-learn, fine-tuning, ChromaDB, Pinecone, MLflow, Pandas'],
-  ['Backend & Cloud', 'FastAPI, Next.js, React, PostgreSQL, Redis, Supabase, Docker, GitHub Actions, AWS, GCP, Azure AI'],
+export const experience = [
+  {
+    period: '2026 — Now',
+    company: 'Handshake',
+    role: 'AI Specialist',
+    note: 'Hardening agentic coding benchmarks and evaluating ChatGPT, Claude and DeepSeek.',
+  },
+  {
+    period: '2026',
+    company: 'Build Fast with AI',
+    role: 'AI Engineer Intern',
+    note: 'LLM agent pipelines for 3+ client businesses — 60–95% less manual effort.',
+  },
+  {
+    period: '2026',
+    company: 'Bot Point',
+    role: 'AI/ML Intern',
+    note: 'Agents serving 1K+ queries a day with 30% higher accuracy.',
+  },
 ]
 
-export const recognition = [
-  { label: 'Publication', text: 'ReflexCube: A No-Code AI Platform Architecture for LLM Application Development (co-author, 2026)' },
-  { label: 'Certifications', text: 'Microsoft Azure AI Apps & Agents Developer Associate · SAP Generative AI Developer · OCI Architect Associate · Salesforce AI Associate' },
-  { label: 'Competitive programming', text: '700+ DSA problems · LeetCode 321 solved · CodeChef 4★' },
+export const about = [
+  "I'm Bikash, a computer science student at KL University (CGPA 9.32, class of 2027). I like working close to the people who'll use what I build — sitting with a manual process, then replacing it with an agent that actually holds up in production.",
+  'Along the way I co-authored a paper on ReflexCube, published pr-review-me on PyPI, and solved 700+ DSA problems (CodeChef 4★).',
 ]
 
-// Shown when the GitHub API is unavailable (rate limit, offline).
-// Also supplies descriptions for repos that don't have one on GitHub.
+export const toolkit = 'Python · TypeScript · LangChain · LangGraph · RAG · FastAPI · Next.js · PyTorch · PostgreSQL · Docker · AWS · GCP · Azure AI'
+
+export const certifications = 'Azure AI Apps & Agents Developer · SAP Generative AI Developer · OCI Architect Associate · Salesforce AI Associate'
+
+// Shown when the GitHub API is unavailable, and used for repos without a description.
 export const repoNotes: Record<string, string> = {
-  baxeli: 'Flight recorder for coding agents — rewind any run and fork a new micro-VM from that moment.',
-  agentcart: 'Policy-gated AI commerce: lets autonomous agents buy from a Razorpay merchant without uncontrolled access to money.',
-  novuagent: 'Incident decision workflow that routes critical alerts, captures human approval and closes the loop.',
   'pep-graph': 'Knowledge graph of 20 years of Python concurrency PEPs, used to reason over new proposals.',
   qsend: 'Agent that vaults OAuth via Arcade and turns Gmail, Slack and Docs into tasks.',
   cutit: 'Claude Code skills for cutting LLM token usage on agentic work without losing quality.',
 }
 
-export const hiddenRepos = new Set(['kh-bikash', 'neetcode-submissions', 'portfolio'])
+// Repos already shown above, or not worth listing.
+export const hiddenRepos = new Set([
+  'kh-bikash', 'neetcode-submissions', 'portfolio',
+  ...[...featured, ...moreProjects].map(p => p.repo.split('/').pop()!),
+])
